@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>查詢購買記錄</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        input, button { margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+    <h1>查詢購買記錄</h1>
+    <label for="name">請輸入您的名字：</label>
+    <input type="text" id="name" placeholder="例如:ys_wonuu">
+    <button onclick="checkStatus()">查詢</button>
+
+    <div id="result"></div>
+
+    <script>
+        // 模擬的購買記錄
+        const purchases = {
+            "林忻誼": [
+                { item: "毛絨白虎卡套", status: "在我這" },
+                { item: "紫色水泥貓*2", status: "已到倉庫" },
+                { item: "圓吧/芝麻圓正常體+貓咪耳尾", status: "已下單" },
+                { item: "狂氣虎/橙色-無吱吱叫*2、白色-無吱吱叫*2", status: "已下單" },
+                { item: "小鹿寶有骨裸娃*1、皮筋耳+鹿角", status: "已下單" },
+                { item: "虎倉裸娃*2、特典*2", status: "已下單" },
+                { item: "門開開*1、耳朵", status: "已下單" },
+                { item: "淨漢퐁하니*1、香草帽子", status: "已下單" },
+                { item: "咻玉桂*1", status: "已下單" },
+                { item: "1&10 插卡立牌", status: "已下單" },
+            ],
+            "張喬媗": [
+                { item: "元吧專輯", status: "已到倉庫" },
+                { item: "圓吧/芝麻圓海星體+貓咪耳尾", status: "已下單" }
+            ],
+            "楊淯婷": [
+                { item: "RIIZE一套卡", status: "已到倉庫" },
+                { item: "RIIZE一套卡", status: "已下單" }
+            ],
+            "許蓓宜": [
+                { item: "李吱吱", status: "已到倉庫" },
+                { item: "小TamTam、大TamTam", status: "已到倉庫" },
+                { item: "知勳뾰냥/紅色뾰냥Ruby ver+特典出生證+掛娃的掛鍊", status: "已下單" }
+            ],
+            "黎璧禎": [
+                { item: "卟桃卟橘", status: "已下單" },
+                { item: "圓廁/水泥貓帽子(灰、黃、粉)", status: "已下單" }
+            ],
+            "周奕辰": [
+                { item: "小太陽花", status: "已下單" }
+            ],
+            "吳芊諭": [
+                { item: "哲吧/昂昂澈裸娃+皮筋兔耳+磁吸兔尾+護目鏡", status: "已下單" }
+            ],
+            "張妤甄": [
+                { item: "圓吧/假笑貓貓", status: "已下單" },
+                { item: "小煎包無骨*1、小羊淨*1", status: "已下單" }
+            ],
+            "楊倢倫": [
+                { item: "圓吧/藍芽鍵盤", status: "已到倉庫" },
+                { item: "圓吧/水泥貓王", status: "已下單" }
+            ],
+            "林奕君": [
+                { item: "淨吧/純白相機+訂製包裝盒+掛繩+數據線+32G內存卡+讀卡器", status: "已到倉庫" },
+                { item: "淘寶/手工串珠", status: "一個到倉另一個在運輸中" },
+                { item: "圓吧/水泥貓王", status: "已下單" },
+                { item: "狂氣虎/橙色-無吱吱叫*1、白色-有吱吱叫*1", status: "已下單" },
+                { item: "boobear/藍色短毛*1、橘子斜跨包*1", status: "已下單" },
+                { item: "虎倉整套", status: "已下單" }
+            ],
+            "周昱兒": [
+                { item: "圓吧/水泥貓王", status: "已下單" }
+            ],
+            "陳咭妤": [
+                { item: "圓吧/水泥貓王", status: "已下單" }
+            ],
+            "林怡芬": [
+                { item: "圓吧/水泥貓王", status: "已下單" }
+            ],
+            "楊涵如": [
+                { item: "圓吧/水泥貓王", status: "已下單" }
+            ],
+            "邱宇蕎": [
+                { item: "圓吧/水泥貓王", status: "已下單" }
+            ],
+            "吳以瑄": [
+                { item: "圓吧/水泥貓王", status: "已下單" }
+            ],
+            "蔡佳霖": [
+                { item: "圓吧/水泥貓王", status: "已下單" },
+                { item: "李蛋獺/10cm*2、40cm*1", status: "已下單" },
+                { item: "小煎包有骨*1、加購眼鏡", status: "已下單" },
+                { item: "虎倉整套", status: "已下單" },
+                { item: "뾰앟10cm*2", status: "已下單" },
+                { item: "boo糖橘*3", status: "已下單" },
+                { item: "湯圓咻淨*2", status: "已下單" },
+                { item: "哈特率*1", status: "已下單" },
+                { item: "尹松果*1、尹初雪*1", status: "已補郵" },
+                { item: "兔囧醬*3", status: "已補郵" },
+                { item: "40cm booju/粉色*2、橘色*1、粉色口水巾2、橘色口水巾*1", status: "已下單" },
+                { item: "小不點珉/8cm*6、10cm*8", status: "已到倉庫" },
+                { item: "圓嗚喵二販/黃色10cm*1、黃帽子*1", status: "已到倉庫" },
+                { item: "甜boo*5", status: "已到倉庫" },
+            ],
+            "梁瑄廷": [
+                { item: "虎倉整套", status: "已下單" },
+                { item: "成訓zone卡、TWS小卡", status: "已到倉庫" }
+            ],
+            "許維凌": [
+                { item: "朋友彩領小卡、朋友碩卡", status: "已到倉庫" },
+                { item: "承珉/珉不樂", status: "已下單" }
+            ],
+            "周湘庭": [
+                { item: "圓吧/水泥貓王", status: "已下單" }
+            ],
+            "郭乃瑜": [
+                { item: "圓吧/假笑貓貓、黑色頭套(反光眼鏡)+藍色髮帶+灰色包包", status: "已下單" },
+                { item: "淨吧/卡套", status: "已下單" },
+                { item: "圓吧/雨傘A*2", status: "已到倉庫" },
+                { item: "淨吧/行動電源", status: "已到倉庫" }
+            ],
+            "余唯瑄": [
+                { item: "圓吧/盲盒:封口貼、針織包、魔法小貓立牌", status: "已到倉庫" }
+            ],
+            "王乙淳": [
+                { item: "圓吧/盲盒:人生四格卡冊", status: "已到倉庫" }
+            ],
+            "胡敏貞": [
+                { item: "淨吧/頭戴式耳機星光白", status: "已到倉庫" },
+                { item: "圓吧/雨傘A", status: "已到倉庫" },
+                { item: "圓吧/藍芽鍵盤*2", status: "已到倉庫" },
+                { item: "圓吧/假笑貓貓", status: "已下單" },
+                { item: "狂氣虎/橙色-有吱吱叫*1、白色-無吱吱叫*1", status: "已下單" }
+            ],
+            "蔡宜希": [
+                { item: "圓吧/假笑貓貓", status: "已下單" },
+                { item: "圓吧/鍵帽組", status: "已下單" },
+                { item: "圓吧/黑色頭套(反光眼鏡)+藍色髮帶+灰色包包", status: "已下單" },
+                { item: "圓廁/水泥貓帽子(灰、淺紫、淺藍)", status: "已下單" },
+            ],
+            "紀亭榕": [
+                { item: "圓廁/水泥貓帽子(灰*2、淺紫*2、黃*2)", status: "已下單" }
+            ],
+            "林欣茹": [
+                { item: "圓廁/水泥貓帽子(深紫、淺紫、橙、黃、深藍)", status: "已下單" }
+            ],
+            "蕭以勤": [
+                { item: "圓廁/水泥貓帽子(黑、淺紫)", status: "已下單" }
+            ],
+            "陳禹昕": [
+                { item: "圓廁/水泥貓帽子(白、黑、粉、淺藍)", status: "已下單" }
+            ],
+            "陳芯柔": [
+                { item: "圓廁/水泥貓帽子(黑)", status: "已下單" }
+            ],
+            "薛卉均": [
+                { item: "圓廁/水泥貓帽子(白、灰、深紫、淺紫、薄荷綠、橙、黃、粉、淺藍)", status: "已下單" },
+                { item: "圓佑同款塗鴉字母短T", status: "已發貨(運輸中)" }
+            ],
+            "黃粲菁": [
+                { item: "圓廁/水泥貓帽子(黑、黃)", status: "已下單" }
+            ],
+            "酈詩涵": [
+                { item: "圓廁/水泥貓帽子(黑、粉)", status: "已下單" }
+            ],
+            "蔡宜芳": [
+                { item: "圓廁/水泥貓帽子(淺紫、黃)", status: "已下單" }
+            ],
+            "劉晏竹": [
+                { item: "圓廁/水泥貓帽子(黑、淺紫)", status: "已下單" }
+            ],
+            "蔡宜瑾": [
+                { item: "圓喵嗚원냐웅三販/紫色*1、Bat Bag*1", status: "已下單" }
+            ],
+            "鄭夙棻": [
+                { item: "圓喵嗚원냐웅三販/黃色*1、藍色*1、黃色帽子*1、藍色洗臉帶*1", status: "已下單" }
+            ],
+            "黃冠寧": [
+                { item: "圓喵嗚원냐웅三販/黃色*1、黃色帽子*1", status: "已下單" },
+                { item: "圓佑鍵盤", status: "已到倉庫" }
+            ],
+            "葉昱敏": [
+                { item: "圓順對娃sp系列6cm玩偶、卡套/6cm權順榮*2、6cm全圓佑*2", status: "已下單" },
+                { item: "全圓佑전냐옹nyangzzi/黑色*2、灰色*2、米色*2", status: "已下單" },
+                { item: "李蛋獺/10cm*2、40cm*1", status: "已下單" }
+            ],
+            "洪維翎": [
+                { item: "圓順對娃sp系列6cm玩偶、卡套/6cm權順榮*3、6cm全圓佑*3、權順榮卡套*2、全圓佑卡套*2", status: "已下單" }
+            ],
+            "林承妤": [
+                { item: "狂氣虎/橙色-有吱吱叫*1", status: "已下單" },
+                { item: "虎倉整套", status: "已下單" }
+            ],
+            "劉舒萍": [
+                { item: "狂氣虎/橙色-無吱吱叫*1、白色-無吱吱叫*2", status: "已下單" }
+            ],
+            "顏喬薇": [
+                { item: "狂氣虎/橙色-無吱吱叫*1 有吱吱叫*1、白色-無吱吱叫*1 有吱吱叫*1", status: "已下單" },
+                { item: "虎倉整套", status: "已下單" },
+                { item: "小TamTam", status: "已到倉庫" }
+            ],
+            "陳子涵": [
+                { item: "奶茸星/裸娃*1、小鼻嘎屁屁夾*1", status: "已下單" }
+            ],
+            "林昀詩": [
+                { item: "boobear/藍色短毛*1、橘色短毛*1、橘子斜跨包*1", status: "已下單" }
+            ],
+            "林竹吟": [
+                { item: "順浪一*1", status: "已下單" }
+            ],
+            "周蓁妮": [
+                { item: "順浪一*1", status: "已下單" },
+                { item: "小TamTam", status: "已到倉庫" }
+            ],
+            "蔡昀臻": [
+                { item: "順浪一*1", status: "已下單" },
+                { item: "虎倉整套", status: "已下單" }
+            ],
+            "吳苡歆": [
+                { item: "順浪一*1", status: "已下單" }
+            ],
+            "陳巍心": [
+                { item: "順浪一*1", status: "已下單" },
+                { item: "小TamTam", status: "已到倉庫" }
+            ],
+            "徐萱": [
+                { item: "順浪一*1", status: "已下單" }
+            ],
+            "許靜蕙": [
+                { item: "順浪一*1", status: "已下單" }
+            ],
+            "曾于禎": [
+                { item: "虎倉整套", status: "已下單" }
+            ],
+            "黃楚昕": [
+                { item: "虎倉整套", status: "已下單" },
+                { item: "小TamTam", status: "已到倉庫" }
+            ],
+            "田欣平": [
+                { item: "虎倉整套", status: "已下單" },
+                { item: "小TamTam", status: "已到倉庫" }
+            ],
+            "許瑄淇": [
+                { item: "小不點珉/8cm*1、10cm*2", status: "已到倉庫" }
+            ],
+            "楊安淇": [
+                { item: "小不點珉/8cm*1、10cm*1", status: "已到倉庫" }
+            ],
+            "陳宥蓁": [
+                { item: "小不點珉/8cm*1", status: "已到倉庫" }
+            ],
+            "蔡欣容": [
+                { item: "小不點珉/10cm*1", status: "已到倉庫" }
+            ],
+            "周靖堯": [
+            { item: "圓嗚喵二販/藍色10cm*1、洗臉帶*1", status: "已到倉庫" }
+            ],
+            "鄭雅文": [
+                { item: "灰貓吊飾", status: "已下單" }
+            ],
+            "柳雨彤": [
+                { item: "小TamTam", status: "已到倉庫" }
+            ],
+            "洪詩涵": [
+                { item: "小TamTam", status: "已到倉庫" }
+            ],
+            "莊美臻": [
+                { item: "小TamTam", status: "已到倉庫" }
+            ],
+            "莊美臻": [
+                { item: "小TamTam", status: "已到倉庫" }
+            ],
+            "羅房妤": [
+                { item: "小TamTam", status: "已到倉庫" }
+            ],
+            "魏嘉萱": [
+                { item: "小TamTam", status: "已到倉庫" }
+            ],
+            "蔡芝芸": [
+                { item: "小TamTam", status: "已到倉庫" }
+            ],
+            "李曉瀅": [
+                { item: "小TamTam", status: "已到倉庫" }
+            ],
+            "徐睿君": [
+                { item: "小TamTam", status: "已到倉庫" }
+            ],
+            "徐睿君": [
+                { item: "小TamTam", status: "已到倉庫" }
+            ],
+            "羅宇涵": [
+                { item: "小TamTam", status: "已到倉庫" }
+            ],
+            "徐晨甄": [
+                { item: "小TamTam", status: "已到倉庫" }
+            ],
+            "鄭夙棻": [
+                { item: "小TamTam", status: "已到倉庫" }
+            ],
+            "陳采鈴": [
+                { item: "小TamTam", status: "已到倉庫" }
+            ],
+        };
+
+        function checkStatus() {
+            const name = document.getElementById('name').value;
+            const resultDiv = document.getElementById('result');
+
+            if (purchases[name]) {
+                let html = `<h2>${name} 的購買記錄：</h2>`;
+                purchases[name].forEach(purchase => {
+                    html += `<p>商品：${purchase.item}     /     狀態：${purchase.status}</p>`;
+                });
+                resultDiv.innerHTML = html;
+            } else {
+                resultDiv.innerHTML = `<p>未找到名為 ${name} 的購買記錄。</p>`;
+            }
+        }
+    </script>
+</body>
+</html>
