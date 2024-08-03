@@ -312,7 +312,7 @@
             if (purchases[name]) {
                 let html = `<h2>${name} 的購買記錄：</h2>`;
                 purchases[name].forEach(purchase => {
-                    html += `<p>商品：${purchase.item}     /     狀態：${purchase.status}</p>`;
+                    html += `<p>商品：${purchase.item}---狀態：${purchase.status}</p>`;
                 });
                 resultDiv.innerHTML = html;
             } else {
