@@ -9,11 +9,10 @@
             margin: 20px; 
             font-family: STKaiti;
             text-align: center;
-            height: 93%;
             background-color:#e3d2f9;
         }
         #result {
-            padding-bottom: 60px; /* 增加底部内边距 */
+            padding-bottom: 80px; /* 增加底部内边距 */
         }
         footer {
             color: rgb(255, 255, 255);
@@ -21,10 +20,14 @@
             position: fixed;
             bottom: 0;
             width: 100%;
-            text-align: center;
+            text-align: center; 
             z-index: 1000; /* 确保 footer 在最上层 */
-            opacity: 0.9; /* 设置透明度 */
+            opacity: 1; /* 设置透明度为1，背景完全透明 */
             font-size: 16px;
+            background-color: transparent; /* 背景完全透明 */
+            margin-left: -20px; /* 向左移动 footer 内容 */
+            padding: 10px 0; /* 上下内边距 */
+            text-shadow: 1px 1px 2px rgba(79, 78, 78, 0.5); /* 添加文本阴影以增强可读性 */
         }
         input, button { margin-bottom: 10px; }
     </style>
