@@ -29,14 +29,50 @@
             padding: 10px 0; /* 上下内边距 */
             text-shadow: 1px 1px 2px rgba(79, 78, 78, 0.5); /* 添加文本阴影以增强可读性 */
         }
-        input, button { margin-bottom: 10px; }
+        input, button { margin-bottom: 8px; }
+        h1 {
+            font-size: 2em; /* 调整标题字体大小 */
+            margin-bottom: 20px;
+        }
+        input, button {
+            margin-bottom: 10px;
+        }
+        input[type="text"] {
+            font-size: 0.9em; /* 调整字体大小 */
+            padding: 6px; /* 增加内边距 */
+            width: 60%; /* 设置宽度 */
+            max-width: 300px; /* 最大宽度 */
+            border: 1px solid #ccc; /* 边框样式 */
+            border-radius: 4px; /* 圆角边框 */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* 添加阴影效果 */
+            outline: none; /* 去掉默认的轮廓线 */
+            transition: border-color 0.3s; /* 平滑过渡 */
+        }
+        input[type="text"]:focus {
+            border-color: #a7a4a8; /* 聚焦时边框颜色 */
+        }
+        button {
+            font-size: 0.9em; /* 调整字体大小 */
+            padding: 6px 12px; /* 增加内边距 */
+            border: none; /* 去掉默认边框 */
+            border-radius: 4px; /* 圆角边框 */
+            background-color:#de98f0; /* 背景颜色 */
+            color: white; /* 字体颜色 */
+            cursor: pointer; /* 鼠标指针样式 */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* 添加阴影效果 */
+            transition: background-color 0.3s; /* 平滑过渡 */
+        }
+        button:hover {
+            background-color: #de98f0; /* 悬停时背景颜色 */
+        }
     </style>
 </head>
 <body>
-    <h1>查詢購買記錄</h1>
+    <h1>🫧StarShine<br>查詢購買記錄</h1>
     <label for="name">請輸入您的名字：</label>
-    <input type="text" id="name" placeholder="例如:窩努(全名)">
+    <input type="text" id="name" placeholder="例如: 窩努(全名)">
     <button onclick="checkStatus()">查詢</button>
+
 
     <div id="result"></div>
 
