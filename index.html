@@ -70,6 +70,11 @@
         text-decoration: none; /* 去掉底線 */
     }
     </style>
+    <script>
+        function handleProductLink(url) {
+            window.open(url, '_blank');
+        }
+    </script>
 </head>
 <body>
     <h1><a href="https://docs.google.com/spreadsheets/d/1e74311geoqufIIYz8Q3E7IaWU_wdevct6hgtV-DLi04/edit?usp=sharing" 
@@ -118,10 +123,22 @@
                 { item: "奶黃勳勳娃+打卡棒", date:"2024.08.25",status: "已拍下確認地址" },
                 { item: "布布泡芙(巧克布、奶油布)+口水巾*2", date:"2024.08.28",status: "已提確" },
             ],
-            "黎璧禎": [
-                { item: "金珉奎깜푸밍、쪼푸밍", date:"2024.08.25",status: "已申請運回" },
-                { item: "櫻桃小酷", date:"2024.09.07",status: "已提確" },
-                { item: "虎仔榮", date:"2024.11.02",status: "🛒https://reurl.cc/KlW62M" },
+           "黎璧禎": [
+                {
+                    "item": "金珉奎깜푸밍、쪼푸밍", 
+                    "date": "2024.08.25",
+                    "status": "已申請運回" 
+                },
+                { 
+                    "item": "櫻桃小酷", 
+                    "date": "2024.09.07",
+                    "status": "已提確" 
+                },
+                { 
+                    "item": "虎仔榮", 
+                    "date": "2024.11.02",
+                    "status": "<a href='https://reurl.cc/KlW62M' target='_blank'>🛒</a>" 
+                }
             ],
             "吳芊諭": [
                 { item: "圓佑🐈‍⬛𝙍𝙚𝙒𝙞𝙣𝙙/누누", date:"2024.10.17",status: "已下單" },
