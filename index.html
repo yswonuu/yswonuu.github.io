@@ -282,20 +282,20 @@
             ],
             "鄭夙棻": [
                 { 
-                    "item": "圓喵嗚원냐웅三販/黃色*1、藍色*1、黃色帽子*1、藍色洗臉帶*1",
+                    "item": "圓喵嗚원냐웅三販<br>黃色*1、藍色*1、黃色帽子*1、藍色洗臉帶*1",
                     "date": "2024.07.29",
                     "status": "<a href='https://reurl.cc/KlW62M' target='_blank'>🛒</a>" 
                 }
             ],
             "黃冠寧": [
                 { 
-                    "item": "圓喵嗚원냐웅三販/黃色*1、黃色帽子*1",
+                    "item": "圓喵嗚원냐웅三販<br>黃色*1、黃色帽子*1",
                     "date": "2024.07.30",
                     "status": "<a href='https://reurl.cc/KlW62M' target='_blank'>🛒</a>"
                 },
             ],
             "葉昱敏": [
-                { item: "圓順對娃sp系列6cm玩偶、卡套/6cm權順榮*2、6cm全圓佑*2", date:"2024.07.28",status: "已到集運" },
+                { item: "圓順對娃sp系列6cm玩偶、卡套<br>6cm權順榮*2、6cm全圓佑*2", date:"2024.07.28",status: "已到集運" },
                 { item: "DOA",date:"2024.10.31", status: "已寄貨" },
             ],
             "洪維翎": [
@@ -313,14 +313,14 @@
             ],
             "陳子涵": [
                 { 
-                    "item": "奶茸星/裸娃*1、小鼻嘎屁屁夾*1",
+                    "item": "奶茸星<br>裸娃*1、小鼻嘎屁屁夾*1",
                     "date": "2024.06.05",
                     "status": "<a href='https://reurl.cc/KlW62M' target='_blank'>🛒</a>"
                 }
             ],
             "林昀詩": [
                 { 
-                    "item": "boobear/藍色短毛*1、橘色短毛*1、橘子斜跨包*1",
+                    "item": "boobear<br>藍色短毛*1、橘色短毛*1、橘子斜跨包*1",
                     "date": "2024.05.13",
                     "status": "<a href='https://reurl.cc/KlW62M' target='_blank'>🛒</a>"
                 }
@@ -411,21 +411,35 @@
                 { item: "🐟魷魚鼠", date:"2024.11.27",status: "已下單" },
             ],
         };
-
         function checkStatus() {
-            const name = document.getElementById('name').value;
-            const resultDiv = document.getElementById('result');
-
-            if (purchases[name]) {
-                let html = `<h2>${name} 的購買記錄：</h2>`;
-                purchases[name].forEach(purchase => {
-                    html += `<p>商品：${purchase.item}<br>下單日期：${purchase.date}<br>狀態：${purchase.status}</p>`;
-                });
-                resultDiv.innerHTML = html;
-            } else {
-                resultDiv.innerHTML = `<p>未找到名為 ${name} 的購買記錄。</p>`;
-            }
+            const name = document.getElementById("name").value.trim();
+            if (!purchases[name]) {
+            document.getElementById("result").innerHTML = "查無此名字，請檢查輸入是否正確。";
+            return;
         }
+            // 顯示購買記錄
+            showPurchases(name);
+        }
+        function showPurchases(name) {
+            const records = purchases[name];
+            let html = `<h2>${name} 的購買記錄：</h2>`;
+            if (!records || records.length === 0) {
+            html += "<p>暫無記錄。</p>";
+            } else {
+                html += "<table border='1' style='margin: 0 auto; color: white;'>";
+                html += "<tr><th>日期</th><th>物品</th><th>狀態</th></tr>";
+                records.forEach(record => {
+                    html += `<tr>
+                                <td>${record.date}</td>
+                                <td>${record.item}</td>
+                                <td>${record.status}</td>
+                            </tr>`;
+                });
+                html += "</table>";
+            }
+                document.getElementById("result").innerHTML = html;
+        }
+
     </script>
 </body>
 </html>
