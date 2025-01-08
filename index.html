@@ -234,7 +234,8 @@
                 { 
                     "item": "櫻桃小酷", 
                     "date": "2024.09.07",
-                    "status": "已申請運回" 
+                    "status": "已申請運回",
+                    "shippingCost": "$10"
                 },
                 { 
                     "item": "梨想成真*2", 
@@ -281,19 +282,19 @@
                 { item: "圓吧/芝麻小圓子", date:"2024.10.23",status: "已提確" },
             ],
             "蔡佳霖": [
-                { item: "櫻桃小酷", date:"2024.09.07",status: "已申請運回", weight: "0.12kg", shippingCost: "5.04" },
-                { item: "拖鞋<br>76454221631732", date:"2024.12",status: "已申請運回", weight: "0.91kg", shippingCost: "38.22" },
-                { item: "香薰<br>YT1909661026238", date:"2025.01",status: "已到集運", weight: "1kg", shippingCost: "42" },
-                { item: "香薰<br>770228239616218", date:"2025.01",status: "已到集運", weight: "0.35kg", shippingCost: "14.7" },
-                { item: "牙膏<br>76458763917493", date:"2025.01",status: "已到集運" , weight: "0.63kg", shippingCost: "26.46"},
-                { item: "馬桶清潔<br>76458704511976", date:"2025.01",status: "已到集運" , weight: "0.78kg", shippingCost: "32.76"},
-                { item: "襪子<br>320311110954337", date:"2025.01",status: "已到集運" , weight: "0.25kg", shippingCost: "10.5"},
-                { item: "乳液<br>770228457798680", date:"2025.01",status: "已到集運" , weight: "0.72kg", shippingCost: "30.24"},
-                { item: "護髮<br>320311059759110", date:"2025.01",status: "已到集運" , weight: "0.24kg", shippingCost: "10.08"},
-                { item: "裙子<br>78871088336503", date:"2025.01",status: "已到集運", weight: "0.22kg", shippingCost: "9.24" },
-                { item: "內衣<br>78871236203695", date:"2025.01",status: "已發貨(大陸端)" , weight: "kg", shippingCost: ""},
-                { item: "收納櫃<br>9877700945958", date:"2025.01",status: "已發貨(大陸端)" , weight: "kg", shippingCost: ""},
-                { item: "衣服<br>320314067725763", date:"2025.01",status: "已到集運", weight: "0.3kg", shippingCost: "12.6" },
+                { item: "櫻桃小酷", date:"2024.09.07",status: "已申請運回", weight: "0.12kg", shippingCost: "$5.04" },
+                { item: "拖鞋<br>76454221631732", date:"2024.12",status: "已申請運回", weight: "0.91kg", shippingCost: "$38.22" },
+                { item: "香薰<br>YT1909661026238", date:"2025.01",status: "已到集運", weight: "1kg", shippingCost: "$42" },
+                { item: "香薰<br>770228239616218", date:"2025.01",status: "已到集運", weight: "0.35kg", shippingCost: "$14.7" },
+                { item: "牙膏<br>76458763917493", date:"2025.01",status: "已到集運" , weight: "0.63kg", shippingCost: "$26.46"},
+                { item: "馬桶清潔<br>76458704511976", date:"2025.01",status: "已到集運" , weight: "0.78kg", shippingCost: "$32.76"},
+                { item: "襪子<br>320311110954337", date:"2025.01",status: "已到集運" , weight: "0.25kg", shippingCost: "$10.5"},
+                { item: "乳液<br>770228457798680", date:"2025.01",status: "已到集運" , weight: "0.72kg", shippingCost: "$30.24"},
+                { item: "護髮<br>320311059759110", date:"2025.01",status: "已到集運" , weight: "0.24kg", shippingCost: "$10.08"},
+                { item: "裙子<br>78871088336503", date:"2025.01",status: "已到集運", weight: "0.22kg", shippingCost: "$9.24" },
+                { item: "內衣<br>78871236203695", date:"2025.01",status: "已發貨(大陸端)" , weight: "kg", shippingCost: "$"},
+                { item: "收納櫃<br>9877700945958", date:"2025.01",status: "已發貨(大陸端)" , weight: "kg", shippingCost: "$"},
+                { item: "衣服<br>320314067725763", date:"2025.01",status: "已到集運", weight: "0.3kg", shippingCost: "$12.6" },
             ],
             "郭乃瑜": [
                 { item: "淨漢/뭉쫑이  睜眼裸娃、石小淨頭套、特典*1", date:"2024.08.15",status: "已申請運回" },
@@ -421,7 +422,7 @@
             html += "<p>暫無記錄。</p>";
         } else {
             html += "<table border='1' style='margin: 0 auto; color: white;'>";
-            html += "<tr><th>下單日期</th><th>物品</th><th>狀態</th><th>重量</th><th>價格</th></tr>";
+            html += "<tr><th>下單日期</th><th>物品</th><th>狀態</th><th>重量</th><th>二補費用</th></tr>";
             records.forEach(record => {
                 const weight = record.weight !== undefined ? record.weight : "暫無";
                 const shippingCost = record.shippingCost !== undefined ? record.shippingCost : "暫無";
