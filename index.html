@@ -20,7 +20,7 @@
         }
 
         #result {
-            padding-bottom: 80px; /* 增加底部内边距 */
+            padding-bottom: 80px;
         }
         footer {
             color: rgb(255, 255, 255);
@@ -29,69 +29,69 @@
             bottom: 0;
             width: 100%;
             text-align: center; 
-            z-index: 1000; /* 确保 footer 在最上层 */
-            opacity: 1; /* 设置透明度为1，背景完全透明 */
+            z-index: 1000; 
+            opacity: 1; 
             font-size: 16px;
-            background-color: transparent; /* 背景完全透明 */
-            margin-left: -20px; /* 向左移动 footer 内容 */
-            padding: 10px 0; /* 上下内边距 */
-            text-shadow: 1px 1px 2px rgba(79, 78, 78, 0.5); /* 添加文本阴影以增强可读性 */
+            background-color: transparent; 
+            margin-left: -20px; 
+            padding: 10px 0; 
+            text-shadow: 1px 1px 2px rgba(79, 78, 78, 0.5); 
         }
         input, button { margin-bottom: 8px; }
         h1 {
-            font-size: 2em; /* 调整标题字体大小 */
+            font-size: 2em; 
             margin-bottom: 20px;
         }
         input, button {
             margin-bottom: 10px;
         }
         input[type="text"] {
-            font-size: 0.9em; /* 调整字体大小 */
-            padding: 6px; /* 增加内边距 */
-            width: 60%; /* 设置宽度 */
-            max-width: 300px; /* 最大宽度 */
-            border: 1px solid #ccc; /* 边框样式 */
-            border-radius: 4px; /* 圆角边框 */
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* 添加阴影效果 */
-            outline: none; /* 去掉默认的轮廓线 */
-            transition: border-color 0.3s; /* 平滑过渡 */
+            font-size: 0.9em; 
+            padding: 6px; 
+            width: 60%; 
+            max-width: 300px; 
+            border: 1px solid #ccc; 
+            border-radius: 4px; 
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); 
+            outline: none; 
+            transition: border-color 0.3s; 
         }
         input[type="text"]:focus {
-            border-color: #a7a4a8; /* 聚焦时边框颜色 */
+            border-color: #a7a4a8; 
         }
         button {
-            font-size: 0.9em; /* 调整字体大小 */
-            padding: 6px 12px; /* 增加内边距 */
-            border: none; /* 去掉默认边框 */
-            border-radius: 4px; /* 圆角边框 */
-            background-color:#de98f0; /* 背景颜色 */
-            color: white; /* 字体颜色 */
-            cursor: pointer; /* 鼠标指针样式 */
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* 添加阴影效果 */
-            transition: background-color 0.3s; /* 平滑过渡 */
+            font-size: 0.9em; 
+            padding: 6px 12px; 
+            border: none; 
+            border-radius: 4px; 
+            background-color:#de98f0; 
+            color: white; 
+            cursor: pointer; 
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); 
+            transition: background-color 0.3s; 
         }
         button:hover {
-            background-color: #de98f0; /* 悬停时背景颜色 */
+            background-color: #de98f0; 
         }
         .link {
-            color: inherit; /* 繼承父元素的顏色 */
-            text-decoration: none; /* 去掉底線 */
+            color: inherit; 
+            text-decoration: none; 
         }
         table {
             width: 100%;
-            max-width: 100%; /* 最大寬度設為100%，保證在小屏設備下顯示良好 */
+            max-width: 100%; 
             border-collapse: collapse;
             margin: 20px 0;
             font-family: Arial, sans-serif;
             background-color: transparent;
-            border: 2px solid transparent; /* 初始邊框透明 */
-            transition: border-color 0.3s ease, box-shadow 0.3s ease; /* 加入過渡效果 */
+            border: 2px solid transparent; 
+            transition: border-color 0.3s ease, box-shadow 0.3s ease; 
         }
 
         th, td {
             padding: 12px;
             text-align: left;
-            border: 1px solid transparent; /* 初始邊框透明 */
+            border: 1px solid transparent;
         }
 
         th {
@@ -104,7 +104,7 @@
         }
 
         tr:hover {
-            background-color: rgba(0, 0, 0, 0.05); /* 鼠標懸停行的背景顏色 */
+            background-color: rgba(0, 0, 0, 0.05); 
         }
 
         caption {
@@ -123,22 +123,20 @@
         }
 
         table:hover {
-            border-color: transparent; /* 邊框保持透明 */
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* 增加陰影效果 */
+            border-color: transparent; 
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); 
         }
 
-        /* 當滑鼠懸停在某行時，該行顯示更深的陰影 */
         tr:hover {
             background-color: rgba(0, 0, 0, 0.1);
-            box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.2); /* 行內部陰影 */
+            box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.2); 
         }
 
-        /* 響應式設計：當屏幕寬度小於768px時，表格變得可以滾動 */
         @media (max-width: 768px) {
             table {
             display: block;
-            overflow-x: auto; /* 啟用水平滾動條 */
-            white-space: nowrap; /* 防止文字換行 */
+            overflow-x: auto; 
+            white-space: nowrap; 
             }
         }
     </style>
@@ -163,7 +161,6 @@
     </footer>
 
     <script>
-        // 模擬的購買記錄
         const purchases = {
             "林忻誼": [
                 { 
@@ -416,7 +413,6 @@
             document.getElementById("result").innerHTML = "查無此名字，請檢查輸入是否正確~";
             return;
         }
-            // 顯示購買記錄
             showPurchases(name);
         }
         function showPurchases(name) {
