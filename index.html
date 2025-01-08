@@ -79,6 +79,7 @@
         }
         table {
             width: 100%;
+            max-width: 100%; /* 最大寬度設為100%，保證在小屏設備下顯示良好 */
             border-collapse: collapse;
             margin: 20px 0;
             font-family: Arial, sans-serif;
@@ -126,9 +127,19 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* 增加陰影效果 */
         }
 
+        /* 當滑鼠懸停在某行時，該行顯示更深的陰影 */
         tr:hover {
             background-color: rgba(0, 0, 0, 0.1);
             box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.2); /* 行內部陰影 */
+        }
+
+        /* 響應式設計：當屏幕寬度小於768px時，表格變得可以滾動 */
+        @media (max-width: 768px) {
+            table {
+            display: block;
+            overflow-x: auto; /* 啟用水平滾動條 */
+            white-space: nowrap; /* 防止文字換行 */
+            }
         }
     </style>
     <script>
