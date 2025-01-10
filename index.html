@@ -441,8 +441,8 @@
             html += "<table border='1' style='margin: 0 auto; color: white;'>";
             html += "<tr><th>下單日期</th><th>物品</th><th>狀態</th><th>重量</th><th>二補💰</th></tr>";
             records.forEach(record => {
-                const item = record.item !== undefined ? record.item : "暫無";
                 const date = record.date !== undefined ? record.date : "暫無";
+                const item = record.item !== undefined ? record.item : "暫無";
                 const status = record.status !== undefined ? record.status : "暫無";
                 const weight = record.weight !== undefined ? record.weight : "暫無";
                 const shippingCost = record.shippingCost !== undefined ? record.shippingCost : "暫無";
