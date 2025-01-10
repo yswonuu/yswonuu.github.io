@@ -299,6 +299,7 @@
                 { item: "收納櫃<br>9877700945958", date:"2025.01",status: "已到集運" , weight: "2.49kg", shippingCost: "$104.58"},
                 { item: "衣服<br>320314067725763", date:"2025.01",status: "已到集運", weight: "0.3kg", shippingCost: "$12.6" },
                 { item: "背心<br>YT1910933695504", date:"2025.01",status: "已到集運", weight: "0.27kg", shippingCost: "$11.34" },
+                { item: "Total", weight: "12.9kg", shippingCost: "$541.8" },
             ],
             "郭乃瑜": [
                 { 
@@ -440,12 +441,15 @@
             html += "<table border='1' style='margin: 0 auto; color: white;'>";
             html += "<tr><th>下單日期</th><th>物品</th><th>狀態</th><th>重量</th><th>二補💰</th></tr>";
             records.forEach(record => {
+                const item = record.item !== undefined ? record.item : "暫無";
+                const date = record.date !== undefined ? record.date : "暫無";
+                const status = record.status !== undefined ? record.status : "暫無";
                 const weight = record.weight !== undefined ? record.weight : "暫無";
                 const shippingCost = record.shippingCost !== undefined ? record.shippingCost : "暫無";
                 html += `<tr>
-                            <td>${record.date}</td>
-                            <td>${record.item}</td>
-                            <td>${record.status}</td>
+                            <td>${date}</td>
+                            <td>${item}</td>
+                            <td>${status}</td>
                             <td>${weight}</td>
                             <td>${shippingCost}</td>
                         </tr>`;
