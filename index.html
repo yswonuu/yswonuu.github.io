@@ -340,7 +340,7 @@
                 { item: "400rmb",shippingCost: "$1816"},
             ],
             "盧妤晴": [
-
+                { item: "🐟newkids", date:"2025.05.05",status: "已下單",shippingCost: "$1728+國際郵"},
             ],
             "黃可欣": [
                 { item: "手燈充電電池/白", date:"2025.04.10",status: "已拿走",shippingCost: "$400"},
@@ -362,32 +362,32 @@
             showPurchases(name);
         }
         function showPurchases(name) {
-        const records = purchases[name];
-        let html = `<h2>${name} 的購買記錄：</h2>`;
-        if (!records || records.length === 0) {
-            html += "<p>暫無記錄。</p>";
-        } else {
-            html += "<table border='1' style='margin: 0 auto; color: white;'>";
-            html += "<tr><th>下單日期</th><th>物品</th><th>狀態</th><th>重量</th><th>二補💰</th></tr>";
-            records.forEach(record => {
-                const date = record.date !== undefined ? record.date : "暫無";
-                const item = record.item !== undefined ? record.item : "暫無";
-                const status = record.status !== undefined ? record.status : "暫無";
-                const weight = record.weight !== undefined ? record.weight : "暫無";
-                const shippingCost = record.shippingCost !== undefined ? record.shippingCost : "暫無";
-                html += `<tr>
-                            <td>${date}</td>
-                            <td>${item}</td>
-                            <td>${status}</td>
-                            <td>${weight}</td>
-                            <td>${shippingCost}</td>
-                        </tr>`;
-            });
-            html += "</table>";
+            const records = purchases[name];
+            let html = `<h2>${name} 的購買記錄：</h2>`;
+            if (!records || records.length === 0) {
+                html += "<p>暫無記錄。</p>";
+            } 
+                else {
+                html += "<table border='1' style='margin: 0 auto; color: white;'>";
+                html += "<tr><th>下單日期</th><th>物品</th><th>狀態</th><th>重量</th><th>二補💰</th></tr>";
+                records.forEach(record => {
+                    const date = record.date !== undefined ? record.date : "暫無";
+                    const item = record.item !== undefined ? record.item : "暫無";
+                    const status = record.status !== undefined ? record.status : "暫無";
+                    const weight = record.weight !== undefined ? record.weight : "暫無";
+                    const shippingCost = record.shippingCost !== undefined ? record.shippingCost : "暫無";
+                    html += `<tr>
+                                <td>${date}</td>
+                                <td>${item}</td>
+                                <td>${status}</td>
+                                <td>${weight}</td>
+                                <td>${shippingCost}</td>
+                            </tr>`;
+                });
+                html += "</table>";
+            }
+            document.getElementById("result").innerHTML = html;
         }
-        document.getElementById("result").innerHTML = html;
-    }
-
     </script>
 </body>
 </html>
