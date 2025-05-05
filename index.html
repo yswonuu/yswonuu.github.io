@@ -1,121 +1,393 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>StarShine🫧代購金額換算</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="https://i.ibb.co/bLM1Vx3/IMG-2394.png">
+    <title>StarShine🫧查詢購買記錄</title>
     <style>
         body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f5f5f5;
-            padding: 50px;
-            margin: 0;
-        }
-        .container {
-            max-width: 500px;
-            margin: 0 auto;
-            background-color: white;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
-        h2 {
-            font-size: 1.8em;
-            color: #333;
+            margin: 20px;
+            font-family: STKaiti;
             text-align: center;
-            margin-bottom: 30px;
+            background-color: rgba(255, 255, 255, 0); /* 半透明背景色 */
+            background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), 
+                            url('https://i.pinimg.com/736x/04/fc/ac/04fcacccdc6f4e63fd51457dd27394dd.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            color: white;
         }
-        label {
-            font-size: 1.1em;
-            color: #333;
-            margin-bottom: 8px;
-            display: block;
+
+        #result {
+            padding-bottom: 80px;
         }
-        select, input, button {
+        footer {
+            color: rgb(255, 255, 255);
+            font-family: Comic Sans MS;
+            position: fixed;
+            bottom: 0;
             width: 100%;
-            padding: 12px;
-            margin-top: 10px;
-            font-size: 1.1em;
-            border-radius: 10px;
-            border: 1px solid #ddd;
-            box-sizing: border-box;
-            background-color: #f9f9f9;
+            text-align: center; 
+            z-index: 1000; 
+            opacity: 1; 
+            font-size: 16px;
+            background-color: transparent; 
+            margin-left: -20px; 
+            padding: 10px 0; 
+            text-shadow: 1px 1px 2px rgba(79, 78, 78, 0.5); 
         }
-        select, input {
+        input, button { margin-bottom: 8px; }
+        h1 {
+            font-size: 2em; 
             margin-bottom: 20px;
         }
+        input, button {
+            margin-bottom: 10px;
+        }
+        input[type="text"] {
+            font-size: 0.9em; 
+            padding: 6px; 
+            width: 60%; 
+            max-width: 300px; 
+            border: 1px solid #ccc; 
+            border-radius: 4px; 
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); 
+            outline: none; 
+            transition: border-color 0.3s; 
+        }
+        input[type="text"]:focus {
+            border-color: #a7a4a8; 
+        }
         button {
-            background-color: #569ae3;
-            color: white;
-            cursor: pointer;
-            border: none;
+            font-size: 0.9em; 
+            padding: 6px 12px; 
+            border: none; 
+            border-radius: 4px; 
+            background-color:#de98f0; 
+            color: white; 
+            cursor: pointer; 
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); 
+            transition: background-color 0.3s; 
         }
         button:hover {
-            background-color: #157be9;
+            background-color: #de98f0; 
         }
-        #result {
-            margin-top: 30px;
+        .link {
+            color: inherit; 
+            text-decoration: none; 
+        }
+        table {
+            width: 100%;
+            max-width: 100%; 
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-family: Arial, sans-serif;
+            background-color: transparent;
+            border: 2px solid transparent; 
+            transition: border-color 0.3s ease, box-shadow 0.3s ease; 
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid transparent;
+        }
+
+        th {
+            background-color: transparent;
+            color: #ffffff;
+        }
+
+        tr:nth-child(even) {
+            background-color: transparent;
+        }
+
+        tr:hover {
+            background-color: rgba(0, 0, 0, 0.05); 
+        }
+
+        caption {
             font-size: 1.5em;
             font-weight: bold;
-            color: #c46ffd;
-            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        td {
+            font-size: 15px;
+        }
+
+        th {
+            font-size: 19px;
+            font-weight: bold;
+        }
+
+        table:hover {
+            border-color: transparent; 
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); 
+        }
+
+        tr:hover {
+            background-color: rgba(0, 0, 0, 0.1);
+            box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.2); 
+        }
+
+        @media (max-width: 768px) {
+            table {
+            display: block;
+            overflow-x: auto; 
+            white-space: nowrap; 
+            }
         }
     </style>
+    <script>
+        function handleProductLink(url) {
+            window.open(url, '_blank');
+        }
+    </script>
 </head>
 <body>
-    <div class="box">
-        <h2>StarShine🫧代購金額換算</h2>
-        <label for="currency">選擇幣別：</label>
-        <select id="currency">
-            <option value="CNY">人民幣 (CNY)</option>
-            <option value="KRW">韓幣 (KRW)</option>
-            <option value="JPY">日幣 (JPY)</option>
-        </select>
-        <br>
-        <label for="amount">請輸入金額：</label>
-        <input type="number" id="amount" placeholder="例如 1000">
+    <h1><a href="https://docs.google.com/spreadsheets/d/1e74311geoqufIIYz8Q3E7IaWU_wdevct6hgtV-DLi04/edit?usp=sharing" 
+        target="_blank" class="link">🫧StarShine</a><br>查詢購買記錄</h1>
+    <label for="name">請輸入您的名字：</label>
+    <input type="text" id="name" placeholder="全名(例:全小佑)">
+    <button onclick="checkStatus()">查詢</button>
 
-        <button onclick="convert()">換算</button>
-        <div id="result"></div>
-    </div>
+
+    <div id="result"></div>
+
+    <footer>
+        <p><a href="https://lin.ee/UpTj5vf" target="_blank" class="link">@ys_wonuu</a></p>
+    </footer>
 
     <script>
-        const rate = 4.4;
-        const feeFixed = 15;
-        const settings = {
-            CNY: {
-                rate: 4.4,         // 1 CNY = ? TWD
-                feeFixed: 15
-            },
-            KRW: {
-                rate: 0.023,       // 1 KRW = ? TWD
-                feeFixed: 20
-            },
-            JPY: {
-                rate: 0.22,        // 1 JPY = ? TWD
-                feeFixed: 15
-            }
+        const purchases = {
+            "林忻誼": [
+                { 
+                    "item": "狂氣虎:<br>橙色-無吱吱叫*2<br>白色-無吱吱叫*2",
+                    "date": "2024.07.03",
+                    "status": "已提確" 
+                },
+                { 
+                    "item": "淨漢퐁하니*1<br>香草帽子",
+                    "date": "2024.07.26",
+                    "status": "<a href='https://reurl.cc/KlW62M' target='_blank'>🛒</a>",
+                    "weight": "0.09kg",
+                    "shippingCost": "$5"
+                },
+                {
+                    "item": "咻玉桂*1",
+                    "date": "2024.08.02",
+                    "status": "<a href='https://reurl.cc/KlW62M' target='_blank'>🛒</a>",
+                    "shippingCost": "$11"
+                },
+                { 
+                    "item": "淨漢娃*1",
+                    "date": "2024.08.18",
+                    "status": "<a href='https://reurl.cc/KlW62M' target='_blank'>🛒</a>",
+                    "shippingCost": "$7"
+                },
+            ],
+            "黃玉倫": [
+                { 
+                    "item": "TXT青島單卡*2", 
+                    "date": "2024.04.23",
+                    "status": "已提確" 
+                },
+            ],
+            "蘇敏熏": [
+                { item: "褲子", date:"2025.04.21",status: "已到集運/5292",weight: "0.63kg",shippingCost: "$30"},
+                { item: "衣服", date:"2025.05.02",status: "已到集運/4459",weight: "0.14kg",shippingCost: "$7"},
+                { item: "衣服", date:"2025.05.03",status: "已到集運/4204",weight: "0.23kg",shippingCost: "$11"},
+            ],
+            "林奕君": [
+                { 
+                    "item": "圓吧:<br>芝麻小圓子", 
+                    "date": "2024.10.24",
+                    "status": "已到集運/1666",
+                    "shippingCost": "$7+$2"
+                },
+                { 
+                    "item": "狂氣虎:<br>橙色-無吱吱叫*1", 
+                    "date": "2024.07.07",
+                    "status": "已提確" 
+                },
+            ],
+            "陳咭妤": [
+                { 
+                    "item": "圓吧:<br>芝麻大王",
+                    "date": "2024.10.23",
+                    "status": "<a href='https://reurl.cc/KlW62M' target='_blank'>🛒</a>" 
+                },
+            ],
+            "楊涵如": [
+                { item: "圓吧:<br>芝麻小圓子", date:"2024.10.23",status: "已到集運/1666",shippingCost: "$7+$2" },
+            ],
+            "蔡佳霖": [
+                { item: "小眈眈*2", date:"2025.02",status: "在我家" },
+                { item: "烏薩奇*5", date:"2025.03.13",status: "已下單" },
+                { item: "蹦蹦鑰匙圈", date:"2025.03.24",status: "已下單" },
+                { item: "十周年克拉棒", date:"2025.03.25",status: "已下單" },
+                { item: "擺件", date:"2025.04.22",status: "在我家/0982"},
+            ],
+            "郭乃瑜": [
+                { item: "圓吧:<br>芝麻小圓子", date:"2024.10.23",status: "已到集運/1666",shippingCost: "$7+$2" },
+            ],
+            "胡敏貞": [
+                { item: "狂氣虎:<br>橙色-有吱吱叫*1<br>白色-無吱吱叫*1", date:"2024.07.03",status: "已提確" }
+            ],
+            "薛卉均": [
+                { item: "圓吧:<br>芝麻小圓子*2", date:"2024.10.22",status: "已到集運/1666",shippingCost: "$7+$2"},
+            ],
+            "蔡宜瑾": [
+                { item: "圓吧:<br>芝麻小圓子", date:"2024.10.23",status: "已到集運/1666",shippingCost: "$7+$2" },
+            ],
+            "洪維翎": [
+                { item: "圓吧:<br>芝麻小圓子*2", date:"2024.10.23",status: "已到集運/1666",shippingCost: "$7+$2" },
+            ],
+            "林承妤": [
+                { item: "狂氣虎:<br>橙色-有吱吱叫*1", date:"2024.07.03",status: "已提確" },
+            ],
+            "劉舒萍": [
+                { item: "狂氣虎:<br>橙色-無吱吱叫*1<br>白色-無吱吱叫*2", date:"2024.07.03",status: "等娃媽退完款後退$571(因匯率差問題)" }
+            ],
+            "顏喬薇": [
+                { item: "狂氣虎:<br>橙色-無吱吱叫*1", date:"2024.07.03",status: "已提確" },
+                { item: "狂氣虎:<br>橙色-有吱吱叫*1", date:"2024.07.03",status: "已提確" },
+                { item: "狂氣虎:<br>白色-無吱吱叫*1", date:"2024.07.03",status: "已提確" },
+                { item: "狂氣虎:<br>白色-有吱吱叫*1", date:"2024.07.03",status: "<a href='https://reurl.cc/KlW62M' target='_blank'>🛒</a>"},
+            ],
+            "林昀詩": [
+                { 
+                    "item": "boobear:<br>藍色短毛*1<br>橘色短毛*1<br>橘子斜跨包*1",
+                    "date": "2024.05.13",
+                    "status": "<a href='https://reurl.cc/KlW62M' target='_blank'>🛒</a>",
+                    "shippingCost": "$40"
+                }
+            ],
+            "陳筠婷": [
+                { 
+                    "item": "圓吧:<br>芝麻小圓子*2",
+                    "date":"2024.10.22",
+                    "status": "已到集運/1666" ,
+                    "shippingCost": "$7+$2"
+                },
+            ],
+            "陳詩昀": [
+                { item: "哲漢奎八衛衣卡", date:"2024.08.31",status: "<a href='https://reurl.cc/KlW62M' target='_blank'>🛒</a>" }
+            ],
+            "沈澤蘭": [
+                { item: "圓吧:<br>芝麻小圓子", date:"2024.10.23",status: "已提確",shippingCost: "$7+$2" },
+            ],
+            "羅莛妤": [
+                { item: "難哄小卡代收", date:"2025.02.26"},
+            ],
+            "吳欣俞": [
+                { item: "難哄小卡代收", date:"2025.02.26"},
+            ],
+            "江秉恆": [
+                { item: "難哄小卡10抽", date:"2025.02.28",status: "已到集運",weight: "0.16kg",shippingCost: "$9"},
+            ],
+            "潘韋心": [
+                { item: "SVT會員禮代收", date:"2025.02.18"},
+            ],
+            "許家瑄": [
+                { item: "愛你香囊<br>款式一、款式二", date:"2025.03.08",status: "<a href='https://reurl.cc/KlW62M' target='_blank'>🛒</a>",weight: "0.44kg",shippingCost: "$23"},
+            ],
+            "劉品妤": [
+                { item: "蹦蹦鑰匙圈", date:"2025.03.24",status: "已下單" },
+            ],
+            "盧彥仱": [
+                { item: "偵心卡2.0*2", date:"2025.03.22",status: "<a href='https://reurl.cc/KlW62M' target='_blank'>🛒</a>",weight: "0.84kg" ,shippingCost: "$44"},
+                { item: "起司妙想卡", date:"2025.04.14",status: "<a href='https://reurl.cc/KlW62M' target='_blank'>🛒</a>",weight: "0.47kg" ,shippingCost: "$25"},
+                { item: "偵心卡抽卡機*50", date:"2025.04.22",status: "已下單"},
+            ],
+            "夏嫚謙": [
+                { item: "起司妙想卡*2", date:"2025.04.14",status: "<a href='https://reurl.cc/KlW62M' target='_blank'>🛒</a>",weight: "0.94kg" ,shippingCost: "$49"},
+            ],
+            "鄭詠儀": [
+                { item: "kimja抱枕", date:"2024.12.10",status: "已拿走", shippingCost: "$98" },
+                { item: "kimja吊飾", date:"2024.12.28",status: "在我家/9418", shippingCost: "無" },
+                { item: "十周年克拉棒", date:"2025.03.24",status: "已拿走",weight: "0.59kg" ,shippingCost: "$31"},
+            ],
+            "朱品諭": [
+                { item: "學習委圓", date:"2025.04.09",status: "已提確"},
+            ],
+            "林奕甄": [
+                { item: "衣服", date:"2025.05.03",status: "已到集運/5771",weight: "0.47kg",shippingCost: "$22.09"},
+                { item: "CD機", date:"2025.05.03",status: "已到集運/1334",weight: "1.21kg",shippingCost: "$56.87"},
+                { item: "CD", date:"2025.05.03",status: "已到集運/3400",weight: "0.23kg",shippingCost: "$10.81"},
+                { item: "衣服", date:"2025.05.03",status: "已發貨(大陸端)/3621"},
+                { item: "衣服", date:"2025.05.03",status: "已到集運/3161",weight: "0.14kg",shippingCost: "$6.58"},
+                { item: "CD", date:"2025.05.03",status: "已到集運/4443",weight: "0.26kg",shippingCost: "$12.22"},
+                { item: "CD", date:"2025.05.03",status: "已下單"},
+            ],
+            "吳俐誼": [
+                { item: "Stray Kids球衣、毛巾", date:"2025.04.07",status: "跨區轉運中/1359"},
+                { item: "手燈充電電池/白", date:"2025.04.10",status: "在我家"},
+                { item: "Stray Kids髮夾", date:"2025.04.21",status: "已下單"},
+                { item: "Stray Kids行動電源", date:"2025.04.22",status: "已下單"},
+                { item: "瞌睡毛球", date:"2025.04.24",status: "已下單",shippingCost: "$580"},
+            ],
+            "許詠涵": [
+                
+            ],
+            "林明宗": [
+                { item: "喇叭", date:"2025.05.04",status: "已發貨(大陸端)/1270"},
+            ],
+            "高韻筑": [
+                { item: "400rmb",shippingCost: "$1816"},
+            ],
+            "盧妤晴": [
+
+            ],
+            "黃可欣": [
+                { item: "手燈充電電池/白", date:"2025.04.10",status: "已拿走",shippingCost: "$400"},
+                { item: "冬日gyunini", date:"2025.04.22",status: "在我這/7811",shippingCost: "$562+$5"},
+                { item: "gyunini盒娃", date:"2025.04.22",status: "在我這/3637",shippingCost: "$710+$11"},
+            ],
+            "Sam": [
+                { item: "ZB1手燈", date:"2025.04.08",status: "在我這/3339",shippingCost: "無"},
+                { item: "冬日tainini", date:"2025.04.15",status: "在我這/7600",shippingCost: "無"},
+                { item: "tainini大娃", date:"2025.04.22",status: "在我這/9445",shippingCost: "$1390+$34"},
+            ],
         };
-
-        function convert() {
-            const currency = document.getElementById('currency').value;
-            const amount = parseFloat(document.getElementById('amount').value);
-            const resultBox = document.getElementById('result');
-
-            if (isNaN(amount) || amount <= 0) {
-                resultBox.textContent = '請輸入有效的金額';
-                resultBox.style.color = 'red';
-                return;
-            }
-
-            const rate = settings[currency].rate;
-            const fee = settings[currency].feeFixed;
-
-            const baseTWD = amount * rate;
-            const totalTWD = baseTWD + fee;
-
-            resultBox.textContent = `需支付台幣：${totalTWD.toFixed(2)} 元`;
-            resultBox.style.color = '#c46ffd';
+        function checkStatus() {
+            const name = document.getElementById("name").value.trim();
+            if (!purchases[name]) {
+            document.getElementById("result").innerHTML = "查無此名字，請檢查輸入是否正確~";
+            return;
         }
+            showPurchases(name);
+        }
+        function showPurchases(name) {
+        const records = purchases[name];
+        let html = `<h2>${name} 的購買記錄：</h2>`;
+        if (!records || records.length === 0) {
+            html += "<p>暫無記錄。</p>";
+        } else {
+            html += "<table border='1' style='margin: 0 auto; color: white;'>";
+            html += "<tr><th>下單日期</th><th>物品</th><th>狀態</th><th>重量</th><th>二補💰</th></tr>";
+            records.forEach(record => {
+                const date = record.date !== undefined ? record.date : "暫無";
+                const item = record.item !== undefined ? record.item : "暫無";
+                const status = record.status !== undefined ? record.status : "暫無";
+                const weight = record.weight !== undefined ? record.weight : "暫無";
+                const shippingCost = record.shippingCost !== undefined ? record.shippingCost : "暫無";
+                html += `<tr>
+                            <td>${date}</td>
+                            <td>${item}</td>
+                            <td>${status}</td>
+                            <td>${weight}</td>
+                            <td>${shippingCost}</td>
+                        </tr>`;
+            });
+            html += "</table>";
+        }
+        document.getElementById("result").innerHTML = html;
+    }
+
     </script>
 </body>
 </html>
