@@ -140,6 +140,35 @@
             white-space: nowrap; 
             }
         }
+        #summaryBox {
+            background-color: rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 0 auto 30px auto;
+            width: 90%;
+            max-width: 800px;
+            color: white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            text-align: left;
+            font-size: 16px;
+        }
+
+        #summaryBox h2 {
+            font-size: 20px;
+            margin-bottom: 12px;
+            border-bottom: 1px solid rgba(255,255,255,0.3);
+            padding-bottom: 5px;
+        }
+
+        #summaryBox ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        #summaryBox li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
     </style>
     <script>
         function handleProductLink(url) {
@@ -150,6 +179,14 @@
 <body>
     <h1><a href="https://docs.google.com/spreadsheets/d/1e74311geoqufIIYz8Q3E7IaWU_wdevct6hgtV-DLi04/edit?usp=sharing" 
         target="_blank" class="link">🫧StarShine</a><br>查詢購買記錄</h1>
+        <div id="summaryBox">
+            <h2>📦 最新轉運狀態</h2>
+            <ul>
+                <li><strong>目前在轉運倉總重量：</strong> <span style="color:#fce4ec">5.2kg</span></li>
+                <li><strong>最近一次申請運回日期：</strong> <span style="color:#fce4ec">2025/06/12</span></li>
+                <li><strong>注意事項：</strong> <span style="color:#fce4ec">請確保包裹資訊正確，申請運回後無法修改！</span></li>
+            </ul>
+        </div>
     <label for="name">請輸入您的名字：</label>
     <input type="text" id="name" placeholder="全名(例:全小佑)">
     <button onclick="checkStatus()">查詢</button>
