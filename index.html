@@ -223,14 +223,14 @@
                 { item: "外套", date:"2025.11.10",status: "已拿走/7244",weight: "0.83kg",shippingCost: "$37"},
             ],
             "鄭詠儀": [
-                { item: "(韓)LMR帽T", date:"2025.11.18",status: "已下單賣貨便",shippingCost: "12/26左右賣貨便寄出"},
-                { item: "SVT新巡外套-黑", date:"2025.10.28",status: "已申請運回/0598",shippingCost: "12/26左右賣貨便寄出"},
+                { item: "(韓)LMR帽T", date:"2025.11.18",status: "已下單賣貨便",note: "12/26左右賣貨便寄出"},
+                { item: "SVT新巡外套-黑", date:"2025.10.28",status: "已申請運回/0598",note: "12/26左右賣貨便寄出"},
                 { item: "SVT奎大扇", date:"2025.10.28",status: "已下單"},
-                { item: "SVT奎生日禮盒", date:"2025.11.21",status: "已下單賣貨便",shippingCost: "$105(12/26左右賣貨便寄出)"},
-                { item: "(日)WVSJP消費期限專*4", date:"2025.12.06",status: "已申請運回/6825",shippingCost: "$未知(12/26左右賣貨便寄出)"},
-                { item: "(韓)聖誕系列花圈吊飾/奎", date:"2025.12.09",status: "已下單賣貨便",shippingCost: "賣貨便貨到付款(12/26左右賣貨便寄出)"},
-                { item: "(韓)聖誕系列站姿吊飾/奎", date:"2025.12.09",status: "已下單賣貨便",shippingCost: "賣貨便貨到付款(12/26左右賣貨便寄出)"},
-                { item: "SVT奎9週年項鍊", date:"2025.12.16",status: "已申請運回/1178",shippingCost: "12/26左右賣貨便寄出"},
+                { item: "SVT奎生日禮盒", date:"2025.11.21",status: "已下單賣貨便",shippingCost: "$105",note: "12/26左右賣貨便寄出"},
+                { item: "(日)WVSJP消費期限專*4", date:"2025.12.06",status: "已申請運回/6825",shippingCost: "未知",note: "12/26左右賣貨便寄出"},
+                { item: "(韓)聖誕系列花圈吊飾/奎", date:"2025.12.09",status: "已下單賣貨便",note: "賣貨便貨到付款(12/26左右賣貨便寄出)"},
+                { item: "(韓)聖誕系列站姿吊飾/奎", date:"2025.12.09",status: "已下單賣貨便",note: "賣貨便貨到付款(12/26左右賣貨便寄出)"},
+                { item: "SVT奎9週年項鍊", date:"2025.12.16",status: "已申請運回/1178",note: "12/26左右賣貨便寄出"},
                 { item: "敖子逸雜誌*2", date:"2025.12.17",status: "已發貨/5480"},
                 { item: "SVT奎大扇", date:"2025.12.22",status: "已下單",shippingCost: "$660"},
             ],
@@ -271,19 +271,21 @@
             } 
                 else {
                 html += "<table border='1' style='margin: 0 auto; color: white;'>";
-                html += "<tr><th>下單日期</th><th>物品</th><th>狀態</th><th>重量</th><th>二補💰</th></tr>";
+                html += "<tr><th>下單日期</th><th>物品</th><th>狀態</th><th>重量</th><th>二補💰</th><th>備註</th></tr>";
                 records.forEach(record => {
                     const date = record.date !== undefined ? record.date : "暫無";
                     const item = record.item !== undefined ? record.item : "暫無";
                     const status = record.status !== undefined ? record.status : "暫無";
                     const weight = record.weight !== undefined ? record.weight : "暫無";
                     const shippingCost = record.shippingCost !== undefined ? record.shippingCost : "暫無";
+                    const note = record.note !== undefined ? record.note : "暫無";
                     html += `<tr>
                                 <td>${date}</td>
                                 <td>${item}</td>
                                 <td>${status}</td>
                                 <td>${weight}</td>
                                 <td>${shippingCost}</td>
+                                <td>${note}</td>
                             </tr>`;
                 });
                 html += "</table>";
