@@ -10,7 +10,7 @@
             margin: 20px;
             font-family: STKaiti;
             text-align: center;
-            background-color: rgba(255, 255, 255, 0); /* 半透明背景色 */
+            background-color: rgba(255, 255, 255, 0);
             background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), 
                             url('https://i.pinimg.com/736x/04/fc/ac/04fcacccdc6f4e63fd51457dd27394dd.jpg');
             background-size: cover;
@@ -19,126 +19,71 @@
             background-attachment: fixed;
             color: white;
         }
-
-        #result {
-            padding-bottom: 80px;
-        }
+        #result { padding-bottom: 80px; }
         footer {
             color: rgb(255, 255, 255);
             font-family: Comic Sans MS;
             position: fixed;
             bottom: 0;
             width: 100%;
-            text-align: center; 
-            z-index: 1000; 
-            opacity: 1; 
+            text-align: center;
+            z-index: 1000;
+            opacity: 1;
             font-size: 16px;
-            background-color: transparent; 
-            margin-left: -20px; 
-            padding: 10px 0; 
-            text-shadow: 1px 1px 2px rgba(79, 78, 78, 0.5); 
+            background-color: transparent;
+            margin-left: -20px;
+            padding: 10px 0;
+            text-shadow: 1px 1px 2px rgba(79, 78, 78, 0.5);
         }
         input, button { margin-bottom: 8px; }
-        h1 {
-            font-size: 2em; 
-            margin-bottom: 20px;
-        }
-        input, button {
-            margin-bottom: 10px;
-        }
+        h1 { font-size: 2em; margin-bottom: 20px; }
+        input, button { margin-bottom: 10px; }
         input[type="text"] {
-            font-size: 0.9em; 
-            padding: 6px; 
-            width: 60%; 
-            max-width: 300px; 
-            border: 1px solid #ccc; 
-            border-radius: 4px; 
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); 
-            outline: none; 
-            transition: border-color 0.3s; 
+            font-size: 0.9em;
+            padding: 6px;
+            width: 60%;
+            max-width: 300px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            outline: none;
+            transition: border-color 0.3s;
         }
-        input[type="text"]:focus {
-            border-color: #a7a4a8; 
-        }
+        input[type="text"]:focus { border-color: #a7a4a8; }
         button {
-            font-size: 0.9em; 
-            padding: 6px 12px; 
-            border: none; 
-            border-radius: 4px; 
-            background-color:#de98f0; 
-            color: white; 
-            cursor: pointer; 
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); 
-            transition: background-color 0.3s; 
+            font-size: 0.9em;
+            padding: 6px 12px;
+            border: none;
+            border-radius: 4px;
+            background-color: #de98f0;
+            color: white;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s;
         }
-        button:hover {
-            background-color: #de98f0; 
-        }
-        .link {
-            color: inherit; 
-            text-decoration: none; 
-        }
+        button:hover { background-color: #cc7de0; }
+        .link { color: inherit; text-decoration: none; }
         table {
             width: 100%;
-            max-width: 100%; 
+            max-width: 100%;
             border-collapse: collapse;
             margin: 20px 0;
             font-family: Arial, sans-serif;
             background-color: transparent;
-            border: 2px solid transparent; 
-            transition: border-color 0.3s ease, box-shadow 0.3s ease; 
+            border: 2px solid transparent;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
         }
-
-        th, td {
-            padding: 12px;
-            text-align: left;
-            border: 1px solid transparent;
-        }
-
-        th {
-            background-color: transparent;
-            color: #ffffff;
-        }
-
-        tr:nth-child(even) {
-            background-color: transparent;
-        }
-
-        tr:hover {
-            background-color: rgba(0, 0, 0, 0.05); 
-        }
-
-        caption {
-            font-size: 1.5em;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-
-        td {
-            font-size: 15px;
-        }
-
-        th {
-            font-size: 19px;
-            font-weight: bold;
-        }
-
-        table:hover {
-            border-color: transparent; 
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); 
-        }
-
-        tr:hover {
-            background-color: rgba(0, 0, 0, 0.1);
-            box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.2); 
-        }
-
+        th, td { padding: 12px; text-align: left; border: 1px solid transparent; }
+        th { background-color: transparent; color: #ffffff; }
+        tr:nth-child(even) { background-color: transparent; }
+        tr:hover { background-color: rgba(0, 0, 0, 0.05); }
+        caption { font-size: 1.5em; font-weight: bold; margin-bottom: 10px; }
+        td { font-size: 15px; }
+        th { font-size: 19px; font-weight: bold; }
+        table:hover { border-color: transparent; box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); }
+        tr:hover { background-color: rgba(0, 0, 0, 0.1); box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.2); }
         @media (max-width: 768px) {
-            table {
-            display: block;
-            overflow-x: auto; 
-            white-space: nowrap; 
-            }
+            table { display: block; overflow-x: auto; white-space: nowrap; }
         }
         #summaryBox {
             background-color: rgba(255, 255, 255, 0.15);
@@ -152,51 +97,158 @@
             text-align: left;
             font-size: 16px;
         }
+        #summaryBox h2 { font-size: 20px; margin-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.3); padding-bottom: 5px; }
+        #summaryBox ul { list-style: none; padding-left: 0; }
+        #summaryBox li { margin: 10px 0; line-height: 1.6; }
 
-        #summaryBox h2 {
-            font-size: 20px;
-            margin-bottom: 12px;
-            border-bottom: 1px solid rgba(255,255,255,0.3);
-            padding-bottom: 5px;
+        /* ===== 繳費按鈕 ===== */
+        #payBtn {
+            display: none;
+            position: relative;
+            z-index: 1001;
+            margin: 16px auto 0 auto;
+            font-size: 1em;
+            padding: 10px 28px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, #f06292, #de98f0);
+            color: white;
+            font-weight: bold;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 14px rgba(222,152,240,0.5);
+            cursor: pointer;
+            border: none;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        #payBtn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(222,152,240,0.7);
+            background: linear-gradient(135deg, #e91e8c, #cc7de0);
         }
 
-        #summaryBox ul {
-            list-style: none;
-            padding-left: 0;
+        /* ===== 繳費彈窗 ===== */
+        #payModal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.6);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
         }
-
-        #summaryBox li {
-            margin: 10px 0;
-            line-height: 1.6;
+        #payModal.show { display: flex !important; }
+        #payModalBox {
+            background: linear-gradient(160deg, #2a1a3e, #1e2a4a);
+            border: 1px solid rgba(222,152,240,0.4);
+            border-radius: 18px;
+            padding: 30px 28px;
+            max-width: 360px;
+            width: 90%;
+            color: white;
+            box-shadow: 0 8px 40px rgba(0,0,0,0.6);
+            text-align: left;
+            position: relative;
+            animation: popIn 0.25s ease;
         }
+        @keyframes popIn {
+            from { transform: scale(0.85); opacity: 0; }
+            to   { transform: scale(1);    opacity: 1; }
+        }
+        #payModalBox h3 {
+            font-size: 1.2em;
+            margin-bottom: 16px;
+            text-align: center;
+            color: #f0c4ff;
+            border-bottom: 1px solid rgba(255,255,255,0.15);
+            padding-bottom: 10px;
+        }
+        .pay-row {
+            display: flex;
+            justify-content: space-between;
+            margin: 8px 0;
+            font-size: 14px;
+            border-bottom: 1px solid rgba(255,255,255,0.07);
+            padding-bottom: 6px;
+        }
+        .pay-row .label { color: #ccc; }
+        .pay-row .val { color: #ffe0ff; font-weight: bold; }
+        .pay-total {
+            margin-top: 14px;
+            font-size: 1.15em;
+            font-weight: bold;
+            text-align: center;
+            color: #f5a0ff;
+            background: rgba(222,152,240,0.15);
+            border-radius: 10px;
+            padding: 10px;
+        }
+        .pay-info {
+            margin-top: 14px;
+            font-size: 13px;
+            color: #ddd;
+            background: rgba(255,255,255,0.07);
+            border-radius: 10px;
+            padding: 10px 14px;
+            line-height: 1.8;
+        }
+        .pay-info strong { color: #f0c4ff; }
+        #closeModal {
+            position: absolute;
+            top: 12px; right: 16px;
+            background: none;
+            border: none;
+            color: rgba(255,255,255,0.5);
+            font-size: 1.4em;
+            cursor: pointer;
+            padding: 0;
+            line-height: 1;
+        }
+        #closeModal:hover { color: white; background: none; box-shadow: none; }
     </style>
     <script>
-        function handleProductLink(url) {
-            window.open(url, '_blank');
-        }
+        function handleProductLink(url) { window.open(url, '_blank'); }
     </script>
 </head>
 <body>
     <h1><a href="https://docs.google.com/spreadsheets/d/1e74311geoqufIIYz8Q3E7IaWU_wdevct6hgtV-DLi04/edit?usp=sharing" 
         target="_blank" class="link">🫧StarShine</a><br>查詢購買記錄</h1>
-        <div id="summaryBox">
-            <h2>📦 最新轉運狀態</h2>
-            <ul>
-                <li><strong>目前在🇨🇳轉運倉總重量：</strong> <span style="color:#fcedf2">2.33kg</span></li>
-                <li><strong>下一次申請運回日期：</strong> <span style="color:#fcedf2">2026/06/05</span></li>
-                <li><strong>注意事項：</strong>
-                    <span style="color:#fcedf2">
-                        請確保包裹資訊正確,申請運回後無法修改!如4天沒查詢到麻煩私訊官方詢問~<br>
-                    </span>
-                </li>
-            </ul>
-        </div>
+    <div id="summaryBox">
+        <h2>📦 最新轉運狀態</h2>
+        <ul>
+            <li><strong>目前在🇨🇳轉運倉總重量：</strong> <span style="color:#fcedf2">2.33kg</span></li>
+            <li><strong>下一次申請運回日期：</strong> <span style="color:#fcedf2">2026/06/05</span></li>
+            <li><strong>注意事項：</strong>
+                <span style="color:#fcedf2">
+                    請確保包裹資訊正確,申請運回後無法修改!如4天沒查詢到麻煩私訊官方詢問~<br>
+                </span>
+            </li>
+        </ul>
+    </div>
     <label for="name">請輸入您的名字：</label>
     <input type="text" id="name" placeholder="全名(例:全小佑)">
     <button onclick="checkStatus()">查詢</button>
 
-
     <div id="result"></div>
+
+    <!-- 繳費按鈕（查詢後出現） -->
+    <button id="payBtn" onclick="openPayModal()">💳 查看應繳運費</button>
+
+    <!-- 繳費彈窗 -->
+    <div id="payModal">
+        <div id="payModalBox">
+            <button id="closeModal" onclick="closePayModal()">✕</button>
+            <h3>💸 運費結算明細</h3>
+            <div id="payDetails"></div>
+            <div class="pay-total" id="payTotal"></div>
+            <div class="pay-info">
+                戶名：<strong>林○瑄</strong><br>
+                <strong>匯款帳號：</strong>彰化銀行 009<br>
+                帳號：<strong>97385002224100</strong><br>
+                <strong>iPass Money：</strong>2549274902<br>
+                <br>
+                繳費後請至 官方LINE/IG 傳截圖給 <strong>@450ruorm/ys_3_6__a.r.m.y</strong> 確認 ✅
+            </div>
+        </div>
+    </div>
 
     <footer>
         <p><a href="https://lin.ee/UpTj5vf" target="_blank" class="link">@ys_wonuu</a></p>
@@ -225,9 +277,7 @@
                 { item: "YAKUSOKU 環球場限", date:"2026.05.29",status: "已下單"},
                 { item: "YAKUSOKU WVS場限", date:"2026.05.29",status: "已下單",weight: "0.08kg",shippingCost: "$4"},
             ],
-            "林忻誼": [
-                
-            ],
+            "林忻誼": [],
             "陳玥錡": [
                 { item: "將軍小征", date:"2026.03.29",status: "已下單",note:"7/31前發貨",shippingCost: "$32+國際郵"},
                 { item: "逐玉收藏禮盒", date:"2026.04.08",status: "已下單",note:"60天內發貨",shippingCost: "$17+國際郵"},
@@ -258,21 +308,31 @@
                { item: "BTS阿米棒VER.4", date:"2026.05.29",status: "已有單號/7901"},
             ],
         };
+
+        let currentName = "";
+
         function checkStatus() {
             const name = document.getElementById("name").value.trim();
             if (!purchases[name]) {
-            document.getElementById("result").innerHTML = "查無此名字，請檢查輸入是否正確~";
-            return;
-        }
+                document.getElementById("result").innerHTML = "查無此名字，請檢查輸入是否正確~";
+                document.getElementById("payBtn").style.display = "none";
+                currentName = "";
+                return;
+            }
+            currentName = name;
             showPurchases(name);
+
+            // 判斷是否有任何運費資料
+            const hasShipping = purchases[name].some(r => r.shippingCost !== undefined);
+            document.getElementById("payBtn").style.display = hasShipping ? "inline-block" : "none";
         }
+
         function showPurchases(name) {
             const records = purchases[name];
             let html = `<h2>${name} 的購買記錄：</h2>`;
             if (!records || records.length === 0) {
                 html += "<p>暫無記錄。</p>";
-            } 
-                else {
+            } else {
                 html += "<table border='1' style='margin: 0 auto; color: white;'>";
                 html += "<tr><th>下單日期</th><th>物品</th><th>狀態</th><th>重量</th><th>二補💰</th><th>備註</th></tr>";
                 records.forEach(record => {
@@ -295,6 +355,56 @@
             }
             document.getElementById("result").innerHTML = html;
         }
+
+        // 解析金額字串，只取純數字部分加總（忽略 +國際郵 等文字）
+        function parseAmount(str) {
+            if (!str) return 0;
+            // 取出所有數字（含小數），加總
+            const matches = str.match(/[\d.]+/g);
+            if (!matches) return 0;
+            return matches.reduce((sum, n) => sum + parseFloat(n), 0);
+        }
+
+        function openPayModal() {
+            if (!currentName) return;
+            const records = purchases[currentName];
+            const withCost = records.filter(r => r.shippingCost !== undefined);
+
+            let detailsHtml = "";
+            let total = 0;
+            let hasExtra = false;
+
+            withCost.forEach(r => {
+                const raw = r.shippingCost; // e.g. "$8" or "$32+國際郵"
+                const amount = parseAmount(raw);
+                total += amount;
+                // 判斷是否有附加說明（非純數字）
+                const hasNote = /[^\d.$+.\s]/.test(raw);
+                if (hasNote) hasExtra = true;
+
+                detailsHtml += `
+                    <div class="pay-row">
+                        <span class="label">${r.item}</span>
+                        <span class="val">${raw}</span>
+                    </div>`;
+            });
+
+            document.getElementById("payDetails").innerHTML = detailsHtml;
+            document.getElementById("payTotal").innerHTML =
+                `合計應繳：<span style="font-size:1.2em">NT$ ${total}</span>` +
+                (hasExtra ? `<br><span style="font-size:0.75em;color:#ffcccc">＊含「+國際郵」項目需另行確認金額</span>` : "");
+
+            document.getElementById("payModal").classList.add("show");
+        }
+
+        function closePayModal() {
+            document.getElementById("payModal").classList.remove("show");
+        }
+
+        // 點彈窗外部也可關閉
+        document.getElementById("payModal").addEventListener("click", function(e) {
+            if (e.target === this) closePayModal();
+        });
     </script>
 </body>
 </html>
