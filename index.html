@@ -242,13 +242,14 @@
             <h3>💸 運費結算明細</h3>
             <div id="payDetails"></div>
             <div class="pay-total" id="payTotal"></div>
-            <div class="pay-info">
+            <div class="pay-info" id="pay-info-block">
                 <strong>戶名：</strong>林○瑄<br>
                 <strong>匯款帳號：</strong>彰化銀行 009<br>
                 <strong>帳號：</strong>97385002224100<br>
                 <strong>iPass Money：</strong>2549274902<br>
                 <br>
-                繳費後請至 官方LINE <strong>@450ruorm</strong><br>IG: <strong>ys_3_6__a.r.m.y</strong> 確認 ✅
+                繳費後請至 官方LINE<br>
+                <strong>@450ruorm</strong><br>IG: <strong>ys_3_6__a.r.m.y</strong> 確認 ✅
             </div>
         </div>
     </div>
@@ -398,7 +399,7 @@
             document.getElementById("payDetails").innerHTML = detailsHtml;
             document.getElementById("payTotal").innerHTML =
                 `合計應繳：<span style="font-size:1.2em">NT$ ${total}</span>` +
-                (hasExtra ? `<br><span style="font-size:0.75em;color:#ffcccc">＊含「+國際郵」項目為貨到付款，請另行確認金額</span>` : "");
+                (hasExtra ? `<br><span style="font-size:0.75em;color:#ffcccc">＊ 此買家為貨到付款</span>` : "");
 
             document.getElementById("pay-info-block").style.display = hasLocalCost ? "block" : "none";
 
