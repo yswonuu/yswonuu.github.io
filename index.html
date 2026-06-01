@@ -280,9 +280,7 @@
                 { item: "YAKUSOKU 環球場限", date:"2026.05.29",status: "已下單"},
                 { item: "YAKUSOKU WVS場限", date:"2026.05.29",status: "已下單",weight: "0.08kg",shippingCost: "$4"},
             ],
-            "林忻誼": [
-
-            ],
+            "林忻誼": [],
             "陳玥錡": [
                 { item: "將軍小征", date:"2026.03.29",status: "已下單",note:"7/31前發貨",shippingCost: "$32+國際郵"},
                 { item: "逐玉收藏禮盒", date:"2026.04.08",status: "已下單",note:"60天內發貨",shippingCost: "$17+國際郵"},
@@ -395,12 +393,12 @@
             });
 
             // 判斷是否有「需匯款」的項目（有金額且不是純國際郵）
-            const hasLocalCost = withCost.some(r => !r.shippingCost.includes("國際郵") && parseAmount(r.shippingCost) > 0);
+            const hasLocalCost = withCost.some(r => !r.shippingCost.includes("國際郵"));
 
             document.getElementById("payDetails").innerHTML = detailsHtml;
             document.getElementById("payTotal").innerHTML =
                 `合計應繳：<span style="font-size:1.2em">NT$ ${total}</span>` +
-                (hasExtra ? `<br><span style="font-size:0.75em;color:#ffcccc">＊ 此買家為貨到付款</span>` : "");
+                (hasExtra ? `<br><span style="font-size:0.75em;color:#ffcccc">＊含「+國際郵」項目為貨到付款，請另行確認金額</span>` : "");
 
             document.getElementById("pay-info-block").style.display = hasLocalCost ? "block" : "none";
 
