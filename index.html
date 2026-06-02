@@ -1,420 +1,779 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-Hant">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="format-detection" content="telephone=no">
-    <link rel="icon" type="image/x-icon" href="https://i.ibb.co/bLM1Vx3/IMG-2394.png">
-    <title>StarShine🫧查詢購買記錄</title>
-    <style>
-        body {
-            margin: 20px;
-            font-family: STKaiti;
-            text-align: center;
-            background-color: rgba(255, 255, 255, 0);
-            background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), 
-                            url('https://i.pinimg.com/736x/04/fc/ac/04fcacccdc6f4e63fd51457dd27394dd.jpg');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            color: white;
-        }
-        #result { padding-bottom: 80px; }
-        footer {
-            color: rgb(255, 255, 255);
-            font-family: Comic Sans MS;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            text-align: center;
-            z-index: 1000;
-            opacity: 1;
-            font-size: 16px;
-            background-color: transparent;
-            margin-left: -20px;
-            padding: 10px 0;
-            text-shadow: 1px 1px 2px rgba(79, 78, 78, 0.5);
-        }
-        input, button { margin-bottom: 8px; }
-        h1 { font-size: 2em; margin-bottom: 20px; }
-        input, button { margin-bottom: 10px; }
-        input[type="text"] {
-            font-size: 0.9em;
-            padding: 6px;
-            width: 60%;
-            max-width: 300px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-            outline: none;
-            transition: border-color 0.3s;
-        }
-        input[type="text"]:focus { border-color: #a7a4a8; }
-        button {
-            font-size: 0.9em;
-            padding: 6px 12px;
-            border: none;
-            border-radius: 4px;
-            background-color: #de98f0;
-            color: white;
-            cursor: pointer;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-            transition: background-color 0.3s;
-        }
-        button:hover { background-color: #cc7de0; }
-        .link { color: inherit; text-decoration: none; }
-        table {
-            width: 100%;
-            max-width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-            font-family: Arial, sans-serif;
-            background-color: transparent;
-            border: 2px solid transparent;
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
-        }
-        th, td { padding: 12px; text-align: left; border: 1px solid transparent; }
-        th { background-color: transparent; color: #ffffff; }
-        tr:nth-child(even) { background-color: transparent; }
-        tr:hover { background-color: rgba(0, 0, 0, 0.05); }
-        caption { font-size: 1.5em; font-weight: bold; margin-bottom: 10px; }
-        td { font-size: 15px; }
-        th { font-size: 19px; font-weight: bold; }
-        table:hover { border-color: transparent; box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); }
-        tr:hover { background-color: rgba(0, 0, 0, 0.1); box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.2); }
-        @media (max-width: 768px) {
-            table { display: block; overflow-x: auto; white-space: nowrap; }
-        }
-        #summaryBox {
-            background-color: rgba(255, 255, 255, 0.15);
-            border-radius: 12px;
-            padding: 20px;
-            margin: 0 auto 30px auto;
-            width: 90%;
-            max-width: 800px;
-            color: white;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-            text-align: left;
-            font-size: 16px;
-        }
-        #summaryBox h2 { font-size: 20px; margin-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.3); padding-bottom: 5px; }
-        #summaryBox ul { list-style: none; padding-left: 0; }
-        #summaryBox li { margin: 10px 0; line-height: 1.6; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>網頁載入中...</title> 
+<meta property="og:title" content="哈囉你好嗎" />
+<meta property="og:type" content="website" />
+<link rel="icon" href="https://fav.farm/🐨" />
+<style>
+:root {
+  --black: #0a0a0f;
+  --bg: #080810;
+  --surface: rgba(18,16,32,0.95);
+  --white: #f5f0eb;
+  --gold: #c9a84c;
+  --gold2: #f0d080;
+  --pink: #e8a0b4;
+  --blue: #6ab0e8;
+  --red: #e84060;
+  --green: #4ecb7a;
+  --card-bg: rgba(20,18,30,0.92);
+  --muted: rgba(240,238,232,0.45);
+  --border: rgba(201,168,76,0.2);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
 
-        /* ===== 繳費按鈕 ===== */
-        #payBtn {
-            display: none;
-            position: relative;
-            z-index: 1001;
-            margin: 16px auto 0 auto;
-            font-size: 1em;
-            padding: 10px 28px;
-            border-radius: 20px;
-            background: linear-gradient(135deg, #ffa4c2, #de98f0);
-            color: white;
-            font-weight: bold;
-            letter-spacing: 1px;
-            box-shadow: 0 4px 14px rgba(222,152,240,0.5);
-            cursor: pointer;
-            border: none;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-        #payBtn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 18px rgba(222,152,240,0.7);
-            background: linear-gradient(135deg, #e91e8c, #cc7de0);
-        }
+body {
+  background: var(--bg);
+  color: var(--white);
+  font-family: 'Noto Sans TC', sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
 
-        /* ===== 繳費彈窗 ===== */
-        #payModal {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.6);
-            z-index: 9999;
-            align-items: center;
-            justify-content: center;
-        }
-        #payModal.show { display: flex !important; }
-        #payModalBox {
-            background: linear-gradient(160deg, #2a1a3e, #1e2a4a);
-            border: 1px solid rgba(222,152,240,0.4);
-            border-radius: 18px;
-            padding: 30px 28px;
-            max-width: 360px;
-            width: 90%;
-            max-height: 80vh;
-            overflow-y: auto;
-            color: white;
-            box-shadow: 0 8px 40px rgba(0,0,0,0.6);
-            text-align: left;
-            position: relative;
-            animation: popIn 0.25s ease;
-        }
-        @keyframes popIn {
-            from { transform: scale(0.85); opacity: 0; }
-            to   { transform: scale(1);    opacity: 1; }
-        }
-        #payModalBox h3 {
-            font-size: 1.2em;
-            margin-bottom: 16px;
-            text-align: center;
-            color: #f0c4ff;
-            border-bottom: 1px solid rgba(255,255,255,0.15);
-            padding-bottom: 10px;
-        }
-        .pay-row {
-            display: flex;
-            justify-content: space-between;
-            margin: 8px 0;
-            font-size: 14px;
-            border-bottom: 1px solid rgba(255,255,255,0.07);
-            padding-bottom: 6px;
-        }
-        .pay-row .label { color: #ccc; }
-        .pay-row .val { color: #ffe0ff; font-weight: bold; }
-        .pay-total {
-            margin-top: 14px;
-            font-size: 1.15em;
-            font-weight: bold;
-            text-align: center;
-            color: #f5a0ff;
-            background: rgba(222,152,240,0.15);
-            border-radius: 10px;
-            padding: 10px;
-        }
-        .pay-info {
-            margin-top: 14px;
-            font-size: 13px;
-            color: #ddd;
-            background: rgba(255,255,255,0.07);
-            border-radius: 10px;
-            padding: 10px 14px;
-            line-height: 1.8;
-        }
-        .pay-info strong { color: #f0c4ff; }
-        #closeModal {
-            position: absolute;
-            top: 12px; right: 16px;
-            background: none;
-            border: none;
-            color: rgba(255,255,255,0.5);
-            font-size: 1.4em;
-            cursor: pointer;
-            padding: 0;
-            line-height: 1;
-        }
-        #closeModal:hover { color: white; background: none; box-shadow: none; }
-    </style>
-    <script>
-        function handleProductLink(url) { window.open(url, '_blank'); }
-    </script>
+/* ── TIME LOCK SCREEN (時間鎖畫面) ── */
+#time-lock-screen {
+  position: fixed;
+  inset: 0;
+  background: var(--bg);
+  z-index: 99999; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  text-align: center;
+}
+.lock-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  box-shadow: 0 0 40px rgba(201,168,76,0.1);
+  padding: 40px 24px;
+  max-width: 450px;
+  width: 100%;
+  border-radius: 8px;
+  backdrop-filter: blur(20px);
+}
+.lock-icon { font-size: 3.5rem; margin-bottom: 20px; animation: wave 1.5s ease-in-out infinite alternate; cursor: pointer; }
+.lock-title { font-family: 'Black Han Sans', sans-serif; font-size: 2rem; color: var(--gold2); margin-bottom: 12px; }
+.lock-desc { font-size: 14px; color: rgba(245,240,235,0.7); line-height: 1.8; margin-bottom: 24px; }
+.countdown-box {
+  display: flex; gap: 10px; justify-content: center; margin-top: 15px;
+}
+.countdown-item {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(201,168,76,0.15);
+  padding: 10px; min-width: 65px; border-radius: 4px;
+}
+.countdown-num { font-family: 'Black Han Sans', sans-serif; font-size: 1.6rem; color: var(--white); }
+.countdown-label { font-size: 10px; color: var(--gold); margin-top: 2px; }
+
+/* ── STARFIELD ── */
+#canvas-bg {
+  position: fixed; top:0; left:0; width:100%; height:100%; z-index:0; pointer-events:none;
+}
+
+/* ── GLOBAL LAYOUT ── */
+.screen {
+  display: none;
+  position: relative;
+  z-index: 10;
+  min-height: 100vh;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 40px 20px;
+  text-align: center;
+}
+.screen.active { display: flex; }
+
+#s-title {
+  background: linear-gradient(180deg, rgba(10,10,20,0.0) 0%, rgba(10,10,20,0.7) 100%);
+}
+.idol-badge {
+  font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
+  color: var(--gold); border: 1px solid var(--gold); padding: 6px 18px; margin-bottom: 28px; display: inline-block;
+}
+.main-title {
+  font-family: 'Black Han Sans', sans-serif; font-size: clamp(3rem, 10vw, 7rem); line-height: 1;
+  color: var(--white); text-shadow: 0 0 60px rgba(201,168,76,0.5); margin-bottom: 8px;
+}
+.main-title span { color: var(--gold2); }
+.sub-title { font-size: clamp(0.9rem, 3vw, 1.2rem); letter-spacing: 3px; color: rgba(245,240,235,0.5); margin-bottom: 40px; }
+.kpop-divider { display: flex; align-items: center; gap: 12px; margin: 20px auto 32px; width: fit-content; }
+.kpop-divider::before, .kpop-divider::after { content: ''; width: 50px; height: 1px; background: linear-gradient(90deg, transparent, var(--gold)); }
+.kpop-divider::after { background: linear-gradient(90deg, var(--gold), transparent); }
+.kpop-divider span { color: var(--gold); font-size: 18px; }
+.couple-info { font-size: 14px; letter-spacing: 2px; color: rgba(245,240,235,0.6); margin-bottom: 48px; line-height: 2; }
+.couple-info strong { color: var(--gold2); }
+
+.glow-btn {
+  background: transparent; border: 1.5px solid var(--gold); color: var(--gold2);
+  font-family: 'Black Han Sans', sans-serif; font-size: 18px; letter-spacing: 4px;
+  padding: 16px 48px; cursor: pointer; position: relative; transition: all 0.3s; text-transform: uppercase;
+}
+.glow-btn::before { content: ''; position: absolute; inset: -1px; background: var(--gold); opacity: 0; transition: opacity 0.3s; z-index: -1; }
+.glow-btn:hover { color: var(--black); text-shadow: none; box-shadow: 0 0 30px rgba(201,168,76,0.6); }
+.glow-btn:hover::before { opacity: 1; }
+
+/* ── STAGE HEADER ── */
+.stage-header {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between; padding: 14px 24px;
+  background: rgba(10,10,15,0.9); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(201,168,76,0.2);
+}
+.stage-label { font-size: 11px; letter-spacing: 3px; color: var(--gold); text-transform: uppercase; }
+.progress-row { display: flex; gap: 6px; }
+.prog-dot { width: 28px; height: 4px; border-radius: 2px; background: rgba(245,240,235,0.15); transition: background 0.4s; }
+.prog-dot.done { background: var(--gold); }
+.prog-dot.active { background: var(--gold2); box-shadow: 0 0 8px var(--gold); }
+
+/* ── CARD ── */
+.card {
+  background: var(--card-bg); border: 1px solid rgba(201,168,76,0.25); border-radius: 4px;
+  padding: clamp(28px, 5vw, 48px) clamp(20px, 5vw, 48px); max-width: 700px; width: 100%; backdrop-filter: blur(20px);
+}
+.stage-num { font-size: 11px; letter-spacing: 4px; color: var(--gold); text-transform: uppercase; margin-bottom: 16px; }
+.card h2 { font-family: 'Black Han Sans', sans-serif; font-size: clamp(1.6rem, 5vw, 2.4rem); margin-bottom: 12px; line-height: 1.2; }
+.card p { color: rgba(245,240,235,0.7); line-height: 1.9; font-size: 0.95rem; }
+
+/* ── STORY ── */
+#story-text { font-size: clamp(1rem, 3vw, 1.25rem); line-height: 2.2; color: var(--white); text-align: left; min-height: 80px; margin: 24px 0; white-space: pre-line; }
+.story-speaker { font-size: 12px; letter-spacing: 3px; color: var(--gold); margin-bottom: 12px; text-transform: uppercase; }
+
+/* ── KPOP QUIZ STYLING ── */
+.badge { font-size:10px; letter-spacing:5px; text-transform:uppercase; color:var(--gold); border:1px solid var(--gold); padding:5px 16px; margin-bottom:24px; display:inline-block; }
+.game-title { font-family:'Black Han Sans',sans-serif; font-size:clamp(2.8rem,12vw,6rem); line-height:1; color:var(--white); text-shadow:0 0 40px rgba(201,168,76,0.4); }
+.game-title span { color:var(--gold2); }
+.subtitle { font-size:13px; letter-spacing:4px; color:var(--muted); margin:10px 0 32px; text-transform:uppercase; }
+.groups-display { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin-bottom:40px; }
+.group-tag { font-size:11px; letter-spacing:2px; padding:5px 14px; border:1px solid var(--border); color:var(--gold); text-transform:uppercase; }
+.quiz-top-bar { display:flex; align-items:center; justify-content:space-between; margin-bottom: 20px; width: 100%; }
+.q-counter { font-size:11px; letter-spacing:3px; color:var(--gold); text-transform:uppercase; }
+.score-disp { font-size:11px; letter-spacing:3px; color:var(--gold2); }
+.progress-bar { height:4px; background:rgba(201,168,76,0.15); flex:1; margin:0 16px; border-radius: 2px; }
+.progress-fill { height:100%; background:var(--gold); transition:width 0.4s ease; border-radius: 2px; }
+.quiz-card { background:transparent; max-width:660px; width:100%; text-align: center; }
+.q-group-label { font-size:10px; letter-spacing:4px; color:var(--gold); text-transform:uppercase; margin-bottom:8px; }
+.q-type-label { font-size:10px; letter-spacing:3px; color:var(--muted); text-transform:uppercase; margin-bottom:16px; }
+.q-question { font-family:'Black Han Sans',sans-serif; font-size:clamp(1.3rem,4vw,1.9rem); margin-bottom:6px; line-height:1.3; color: var(--white); }
+.q-hint { font-size:13px; color:var(--muted); margin-bottom:20px; }
+.options { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:16px; }
+.opt { background:transparent; border:1px solid rgba(240,238,232,0.18); color:var(--white); padding:13px 14px; border-radius:2px; cursor:pointer; font-family:'Noto Sans TC',sans-serif; font-size:14px; transition:all 0.2s; text-align:left; }
+.opt:hover:not(:disabled) { border-color:var(--gold); background:rgba(201,168,76,0.08); }
+.opt.correct { border-color:var(--green); background:rgba(78,203,122,0.12); color:var(--green); }
+.opt.wrong { border-color:var(--red); background:rgba(232,64,96,0.12); color:var(--red); }
+.opt:disabled { cursor:default; }
+.feedback { min-height:28px; margin-top:14px; font-size:13px; letter-spacing:1px; color:var(--gold2); }
+.next-btn { display:none; margin-top:16px; }
+.result-score { font-family:'Black Han Sans',sans-serif; font-size:clamp(3rem,12vw,7rem); color:var(--gold2); text-shadow:0 0 40px rgba(240,208,128,0.3); }
+.result-label { font-size:13px; letter-spacing:4px; color:var(--muted); text-transform:uppercase; margin-bottom:24px; }
+.result-msg { font-size:1.05rem; color:rgba(240,238,232,0.8); line-height:2; margin-bottom:32px; }
+.wrong-list { background:rgba(232,64,96,0.06); border:1px solid rgba(232,64,96,0.2); border-radius:4px; padding:16px 20px; margin:16px 0 24px; text-align:left; max-height:200px; overflow-y:auto; }
+.wrong-list h4 { font-size:11px; letter-spacing:3px; color:var(--red); text-transform:uppercase; margin-bottom:10px; }
+.wrong-item { font-size:13px; color:rgba(240,238,232,0.7); margin-bottom:6px; line-height:1.6; }
+.wrong-item span { color:var(--green); }
+@keyframes fadeUp { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
+.fade-up { animation:fadeUp 0.4s ease both; }
+.divider { display:flex; align-items:center; gap:10px; margin:20px auto; width:fit-content; color:var(--gold); font-size:16px; }
+.divider::before,.divider::after { content:''; width:44px; height:1px; background:linear-gradient(90deg,transparent,var(--gold)); }
+.divider::after { background:linear-gradient(90deg,var(--gold),transparent); }
+.btn-row { display:flex; flex-wrap:wrap; gap:12px; justify-content:center; }
+
+/* ── GALLERY ── */
+.gallery-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; width: 100%; max-width: 600px; margin: 20px 0; }
+.gal-item { position: relative; border-radius: 2px; overflow: hidden; aspect-ratio: 4/5; border: 1px solid rgba(201,168,76,0.2); background: rgba(30,25,45,0.8); }
+.gal-item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s, filter 0.4s; filter: grayscale(30%); }
+.gal-item:hover img { transform: scale(1.05); filter: none; }
+.gal-label { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(10,10,20,0.9)); padding: 20px 12px 10px; font-size: 12px; letter-spacing: 2px; color: var(--gold); text-transform: uppercase; }
+
+/* ── LETTER ── */
+#final-letter { font-size: 1.05rem; line-height: 2.4; color: rgba(245,240,235,0.9); text-align: left; white-space: pre-line; min-height: 60px; margin: 20px 0; border-left: 2px solid rgba(201,168,76,0.3); padding-left: 20px; }
+
+/* ── ENDING FIREWORKS & CONFETTI ── */
+.firework { position: fixed; pointer-events: none; font-size: 28px; animation: fw-fly 2.5s ease-out forwards; z-index: 999; }
+@keyframes fw-fly { 0% { transform: translate(0,0) scale(1); opacity: 1; } 100% { transform: translate(var(--dx), var(--dy)) scale(0); opacity: 0; } }
+.confetti-piece { position: fixed; width: 8px; height: 8px; border-radius: 1px; animation: confetti-fall linear forwards; z-index: 998; pointer-events: none; }
+@keyframes confetti-fall { 0% { transform: translateY(-20px) rotate(0deg); opacity: 1; } 100% { transform: translateY(105vh) rotate(720deg); opacity: 0; } }
+
+/* ── ENCORE SCREEN ── */
+#s-encore { background: radial-gradient(ellipse at center, rgba(201,168,76,0.08) 0%, transparent 70%); }
+.lightstick-row { display: flex; gap: 8px; margin-bottom: 20px; animation: wave 1.5s ease-in-out infinite alternate; }
+@keyframes wave { from { transform: translateY(0); } to { transform: translateY(-10px); } }
+.ls { font-size: 2.5rem; animation: ls-color 2s ease-in-out infinite alternate; }
+.ls:nth-child(odd) { animation-delay: 0.3s; }
+.ls:nth-child(even) { animation-delay: 0.6s; }
+@keyframes ls-color { from { filter: hue-rotate(0deg) brightness(1); } to { filter: hue-rotate(60deg) brightness(1.4); } }
+.encore-title { font-family: 'Black Han Sans', sans-serif; font-size: clamp(2rem, 8vw, 4.5rem); line-height: 1; margin: 12px 0; }
+.encore-title .line1 { color: var(--gold2); }
+.encore-title .line2 { color: var(--white); font-size: 0.5em; letter-spacing: 4px; }
+
+/* ── TRANSITIONS ── */
+@keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+.anim-in { animation: fadeIn 0.5s ease-out both; }
+.score-badge { display: inline-block; background: rgba(201,168,76,0.12); border: 1px solid rgba(201,168,76,0.35); padding: 6px 20px; font-size: 13px; letter-spacing: 3px; color: var(--gold); margin-bottom: 16px; }
+.mt { margin-top: 24px; }
+.mb { margin-bottom: 16px; }
+.gold { color: var(--gold2); }
+.muted { color: rgba(245,240,235,0.45); font-size: 0.85rem; }
+
+/* ── CUSTOM PAY MODAL (惡搞付費彈窗) ── */
+.modal-overlay { display: none; position: fixed; inset: 0; background: rgba(5, 4, 10, 0.85); backdrop-filter: blur(8px); z-index: 1000; justify-content: center; align-items: center; padding: 20px; }
+.modal-overlay.active { display: flex; }
+.pay-card { background: #14121e; border: 2px solid var(--red); box-shadow: 0 0 30px rgba(232, 64, 96, 0.3); border-radius: 8px; max-width: 420px; width: 100%; padding: 32px 24px; text-align: center; animation: fadeIn 0.3s ease-out; }
+.pay-icon { font-size: 3rem; margin-bottom: 16px; animation: wave 0.5s infinite alternate; }
+.pay-title { font-family: 'Black Han Sans', sans-serif; font-size: 1.8rem; color: var(--red); margin-bottom: 12px; }
+.pay-desc { font-size: 0.95rem; color: rgba(245,240,235,0.8); line-height: 1.8; margin-bottom: 24px; }
+.pay-btn-row { display: flex; flex-direction: column; gap: 12px; }
+.pay-primary-btn { background: var(--red); border: none; color: white; font-family: 'Noto Sans TC', sans-serif; font-weight: bold; font-size: 16px; padding: 14px; cursor: pointer; border-radius: 4px; transition: all 0.2s; box-shadow: 0 4px 12px rgba(232, 64, 96, 0.4); }
+.pay-primary-btn:hover { background: #ff5274; transform: translateY(-2px); }
+</style>
 </head>
 <body>
-    <h1><a href="https://docs.google.com/spreadsheets/d/1e74311geoqufIIYz8Q3E7IaWU_wdevct6hgtV-DLi04/edit?usp=sharing" 
-        target="_blank" class="link">🫧StarShine</a><br>查詢購買記錄</h1>
-    <div id="summaryBox">
-        <h2>📦 最新轉運狀態</h2>
-        <ul>
-            <li><strong>目前在🇨🇳轉運倉總重量：</strong> <span style="color:#fcedf2">2.33kg</span></li>
-            <li><strong>下一次申請運回日期：</strong> <span style="color:#fcedf2">2026/06/05</span></li>
-            <li><strong>注意事項：</strong>
-                <span style="color:#fcedf2">
-                    請確保包裹資訊正確,申請運回後無法修改!如4天沒查詢到麻煩私訊官方詢問~<br>
-                </span>
-            </li>
-        </ul>
+
+<!-- ════ 時間鎖覆蓋畫面 ════ -->
+<div id="time-lock-screen">
+  <div class="lock-card">
+    <div class="lock-icon" onclick="triggerBackdoor()">🎁</div>
+    <div class="lock-title">驚喜籌備中...</div>
+    <div class="lock-desc">
+      碩寶～不要偷看！<br>
+      這個神祕網頁目前正由無尾熊嚴密看守中 🐨<br>
+      距離正式解鎖開啟還需要：
     </div>
-    <label for="name">請輸入您的名字：</label>
-    <input type="text" id="name" placeholder="全名(例:全小佑)">
-    <button onclick="checkStatus()">查詢</button>
-
-    <div id="result"></div>
-
-    <!-- 繳費按鈕（查詢後出現） -->
-    <button id="payBtn" onclick="openPayModal()">💳 查看應繳費用</button>
-
-    <!-- 繳費彈窗 -->
-    <div id="payModal">
-        <div id="payModalBox">
-            <button id="closeModal" onclick="closePayModal()">✕</button>
-            <h3>💸 二補結算明細</h3>
-            <div id="payDetails"></div>
-            <div class="pay-total" id="payTotal"></div>
-            <div class="pay-info" id="pay-info-block">
-                <strong>戶名：</strong>林○瑄<br>
-                <strong>匯款帳號：</strong>彰化銀行 009<br>
-                <strong>帳號：</strong>97385002224100<br>
-                <strong>iPass Money：</strong>2549274902<br>
-                <br>
-                繳費後請傳至<br>IG: <strong>ys_3_6__a.r.m.y</strong> 確認 ✅
-            </div>
-        </div>
+    <div class="countdown-box">
+      <div class="countdown-item"><div class="countdown-num" id="cd-d">00</div><div class="countdown-label">天</div></div>
+      <div class="countdown-item"><div class="countdown-num" id="cd-h">00</div><div class="countdown-label">時</div></div>
+      <div class="countdown-item"><div class="countdown-num" id="cd-m">00</div><div class="countdown-label">分</div></div>
+      <div class="countdown-item"><div class="countdown-num" id="cd-s">00</div><div class="countdown-label">秒</div></div>
     </div>
+  </div>
+</div>
 
-    <footer>
-        <p><a href="https://lin.ee/UpTj5vf" target="_blank" class="link">@ys_wonuu</a></p>
-    </footer>
+<canvas id="canvas-bg"></canvas>
 
-    <script>
-        const purchases = {
-            "蘇敏熏": [
-                { item: "Twice新國立Momo", date:"2026.04.14",status: "已提確"},
-                { item: "Twice小卡", date:"2026.05.17",status: "已拿走/5438",weight: "0.16kg",shippingCost: "$8"},
-                { item: "Twice小卡", date:"2026.05.17",status: "已拿走/1589",weight: "0.14kg",shippingCost: "$7"},
-                { item: "手機殼", date:"2026.05.17",status: "已拿走/9161",weight: "0.08kg",shippingCost: "$4"},
-                { item: "Twice小卡", date:"2026.05.19",status: "已拿走/8847",weight: "0.04kg",shippingCost: "$2"},
-                { item: "Twice小卡", date:"2026.05.19",status: "已拿走/7816",weight: "0.02kg",shippingCost: "$1"},
-                { item: "卡冊", date:"2026.05.22",status: "已拿走/0675",weight: "0.37kg",shippingCost: "$18.5"},
-                { item: "Twice小卡", date:"2026.05.22",status: "已到集運/4015",weight: "0.07kg",shippingCost: "$3.5"},
-                { item: "轉印貼", date:"2026.05.28",status: "已到集運/7117",weight: "0.15kg",shippingCost: "$7.5"},
-                { item: "貼紙", date:"2026.05.30",status: "已到集運/9513",weight: "0.33kg",shippingCost: "$16.5"},
-                { item: "Twice小卡", date:"2026.05.30",status: "已到集運/7672",weight: "0.05kg",shippingCost: "$2.5"},
-            ],
-            "鄭詠儀": [
-                { item: "miniteen奎T-shirt", date:"2026.03.11",status: "已到集運/7355",shippingCost: "$11"},
-                { item: "Miniteen*2", date:"2026.05.23",status: "已發貨/6904/6763"},
-                { item: "ISTKUNST衣服", date:"2026.05.27",status: "已到飯店/0263"},
-                { item: "自印小卡", date:"2026.05.28",status: "已到集運/9729",weight: "0.08kg",shippingCost: "$4"},
-                { item: "YAKUSOKU 環球場限", date:"2026.05.29",status: "已下單"},
-                { item: "YAKUSOKU WVS場限", date:"2026.05.29",status: "已下單"},
-            ],
-            "林忻誼": [
+<!-- ════ STAGE NAV ════ -->
+<div class="stage-header" id="stage-nav" style="display:none">
+  <div class="stage-label" id="stage-label">Prologue</div>
+  <div class="progress-row" id="progress-row">
+    <div class="prog-dot" data-i="0"></div>
+    <div class="prog-dot" data-i="1"></div>
+    <div class="prog-dot" data-i="2"></div>
+  </div>
+</div>
 
-            ],
-            "陳玥錡": [
-                { item: "將軍小征", date:"2026.03.29",status: "已下單",note:"7/31前發貨",shippingCost: "$32+國際郵"},
-                { item: "逐玉收藏禮盒", date:"2026.04.08",status: "已下單",note:"60天內發貨",shippingCost: "$17+國際郵"},
-            ],
-            "蔡佳霖": [
-                { item: "Total",shippingCost: "$270.5"},
-            ],
-            "許蓓宜": [
-                { item: "Maki 青島中簽卡", date:"2026.05.26",status: "已下單"},
-            ],
-            "盧妤晴": [
-                { item: "and2ble數星星特典", date:"2026.04.27",status: "已下單"},
-            ],
-            "黃可欣": [
-                { item: "ZB1 reflow qq音樂奎彬小卡", date:"2026.02.02",status: "在我這/4813",shippingCost: "$186+$2"},
-                { item: "ZB1 reflow qq音樂馬修小卡", date:"2026.02.02",status: "在我這/0460",shippingCost: "$186+$3"},
-            ],
-            "Sam": [
-               { item: "ZB1 reflow qq音樂泰來小卡", date:"2026.02.02",status: "在我這/9790",shippingCost: "$3"},
-            ],
-            "林奕甄": [
-                { item: "褲子", date:"2025.05.11",status: "在家/1189"},
-               { item: "小背心-白", date:"2025.05.12",status: "在家/1461"},
-               { item: "小背心-紅", date:"2025.05.12",status: "在家/5099"},
-               { item: "手錶", date:"2025.05.12",status: "在家/2293"},
-            ],
-            "孫瑋琳": [
-               { item: "BTS阿米棒VER.4", date:"2026.05.29",status: "已有單號/7901"},
-            ],
-        };
+<!-- ════ SCREEN 0: TITLE ════ -->
+<section class="screen active" id="s-title">
+  <div class="idol-badge">Happy Birthday </div>
+  <h1 class="main-title"><span>Joshua</span></h1>
+  <p class="sub-title">BIRTHDAY GAME</p>
+  <div class="kpop-divider"><span>✦</span></div>
+  <div class="couple-info">
+    <strong>Player</strong> 陳勁碩 &nbsp;×&nbsp; <strong>Baby</strong> 林奕瑄<br>
+    <span class="muted">Relationship Start · 2025.08.18</span>
+  </div>
+  <button class="glow-btn" onclick="startGame()">▶ START GAME</button>
+</section>
 
-        let currentName = "";
+<!-- ════ SCREEN 1: STORY INTRO ════ -->
+<section class="screen" id="s-story">
+  <div class="card anim-in">
+    <div class="stage-num">Stage 01 · Prologue</div>
+    <h2>오늘의 주인공</h2>
+    <div class="story-speaker">Baby :Shuo</div>
+    <div id="story-text"></div>
+    <button class="glow-btn mt" id="story-next" style="display:none" onclick="gotoStage(2)">다음 →</button>
+  </div>
+</section>
 
-        function checkStatus() {
-            const name = document.getElementById("name").value.trim();
-            if (!purchases[name]) {
-                document.getElementById("result").innerHTML = "查無此名字，請檢查輸入是否正確~";
-                document.getElementById("payBtn").style.display = "none";
-                currentName = "";
-                return;
+<!-- ════ SCREEN 2: KPOP QUIZ CHALLENGE ════ -->
+<section class="screen" id="s-quiz-intro">
+  <div class="card anim-in">
+    <div class="badge">K-POP Challenge</div>
+    <h1 class="game-title">快問<br><span>快答</span></h1>
+    <p class="subtitle">Idol Recognition Game</p>
+    <div class="groups-display">
+      <div class="group-tag">Seventeen</div>
+      <div class="group-tag">I-DLE</div>
+      <div class="group-tag">LE SSERAFIM</div>
+      <div class="group-tag">aespa</div>
+      <div class="group-tag">IVE</div>
+    </div>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:32px;line-height:2">
+      共 <strong style="color:var(--gold2)">15</strong> 題 · 考驗你的偶像知識！<br>
+    </p>
+    <button class="glow-btn" onclick="startQuizGameplay()">▶ 開始挑戰</button>
+  </div>
+</section>
+
+<section class="screen" id="s-quiz-play">
+  <div class="card anim-in">
+    <div class="quiz-top-bar">
+      <div class="q-counter" id="q-counter">1 / 15</div>
+      <div class="progress-bar"><div class="progress-fill" id="prog-fill" style="width:7%"></div></div>
+      <div class="score-disp" id="score-disp">score: 0</div>
+    </div>
+    <div class="quiz-card fade-up" id="quiz-card">
+      <div class="q-group-label" id="q-group"></div>
+      <div class="q-type-label" id="q-type"></div>
+      <div id="q-media"></div>
+      <div class="q-question" id="q-question"></div>
+      <div class="q-hint" id="q-hint"></div>
+      <div class="options" id="q-opts"></div>
+      <div class="feedback" id="q-feedback"></div>
+      <button class="glow-btn next-btn" id="q-next" onclick="nextQuestion()">下一題 →</button>
+    </div>
+  </div>
+</section>
+
+<section class="screen" id="s-quiz-result">
+  <div class="card anim-in">
+    <div class="badge">Result</div>
+    <div class="result-score" id="final-quiz-score">0</div>
+    <div class="result-label">/ 15 正確</div>
+    <div class="divider"><span>✦</span></div>
+    <div class="result-msg" id="result-msg"></div>
+    <div id="wrong-section"></div>
+    <div class="btn-row">
+      <button class="glow-btn" onclick="retryQuiz()">↺ 再挑戰一次</button>
+      <button class="glow-btn" onclick="finishQuizStage()" style="border-color:#e8a0b4;color:#e8a0b4;">💎 我們的回憶 →</button>
+    </div>
+  </div>
+</section>
+
+<!-- ════ SCREEN 3: GALLERY + LETTER ════ -->
+<section class="screen" id="s-final">
+  <div class="card anim-in" style="max-width:750px">
+    <div class="stage-num">Stage 03 · Memory Gallery</div>
+    <h2>💎 我們的回憶 💎</h2>
+    <div class="gallery-grid" id="gallery-grid">
+      <div class="gal-item"><img src="https://i.ibb.co/wNrVvB3T/IMG-0205.png"><div class="gal-label">回憶 01</div></div>
+      <div class="gal-item"><img src="https://i.ibb.co/Ps96pmgZ/IMG-1087.jpg"><div class="gal-label">回憶 02</div></div>
+      <div class="gal-item"><img src="https://i.ibb.co/yG6yHk9/IMG-0074.jpg"><div class="gal-label">回憶 03</div></div>
+      <div class="gal-item"><img src="https://i.ibb.co/5h5p755F/IMG-2356.jpg"><div class="gal-label">回憶 04</div></div>
+    </div>
+    <div id="final-letter"></div>
+    <button class="glow-btn mt" id="letter-btn" style="display:none" onclick="gotoEncore()">🎁 打開生日禮物</button>
+  </div>
+</section>
+
+<!-- ════ SCREEN 4: ENCORE ════ -->
+<section class="screen" id="s-encore">
+  <div class="lightstick-row">
+    <span class="ls">🪄</span><span class="ls">💎</span><span class="ls">🪄</span><span class="ls">💎</span><span class="ls">🪄</span>
+  </div>
+  <div class="score-badge" id="final-score">SCORE: 0 / 100</div>
+  <div class="encore-title">
+    <div class="line1">생일 축하해!</div>
+    <div class="line2">碩寶生日快樂</div>
+  </div>
+  <div class="kpop-divider" style="margin:20px auto"><span>♡</span></div>
+  <p style="font-size:1rem;line-height:2.2;max-width:480px;color:rgba(245,240,235,0.8)">
+    我愛你<br>
+    <span class="muted">— by 奕瑄</span>
+  </p>
+  <div style="margin-top:36px;font-size:12px;letter-spacing:3px;color:rgba(245,240,235,0.3)">
+    可以打開盲盒了 🎁
+  </div>
+</section>
+
+<div class="modal-overlay" id="pay-modal">
+  <div class="pay-card">
+    <div class="pay-icon">🔒</div>
+    <div class="pay-title">親密回憶已鎖定</div>
+    <div class="pay-desc">
+      因您剛才的 K-POP 答題表現，系統已將後續的「重要回憶畫廊」封印。<br><br>
+      請向 <strong style="color:var(--pink)">無尾熊</strong> 支付 <strong style="color:var(--gold2)">看你要多少解鎖囉</strong> 以解鎖限定劇情。<br>
+      <span class="muted" style="font-size: 11px;">(開玩笑的你可以直接點最下面的小字)</span>
+    </div>
+    
+    <div class="pay-btn-row">
+      <a href="https://apps.apple.com/app/id1664639200" target="_blank" style="text-decoration: none;" onclick="recordLeaveTime()">
+        <button type="button" class="pay-primary-btn" style="width: 100%; letter-spacing: 1px;">
+          💰 點擊立即跳轉轉帳
+        </button>
+      </a>
+
+      <button type="button" style="background: rgba(255,255,255,0.05); border: 1px dashed var(--gold); color: var(--gold2); font-size: 13px; padding: 10px; cursor: pointer; border-radius: 4px;" onclick="navigator.clipboard.writeText('94385002224100'); alert('帳號已成功複製到剪貼簿！\n(彰化銀行 009 帳號: 94385002224100)\n請碩寶自覺前往 App 儲值安太歲 🥰'); recordLeaveTime();">
+        📋 一鍵複製銀行帳號
+      </button>
+
+      <button type="button" id="pay-success-btn" disabled class="glow-btn" 
+        style="margin-top: 12px; width: 100%; padding: 12px; font-size: 15px; border-color: #555; color: #777; background: rgba(255,255,255,0.02); cursor: not-allowed; transition: all 0.3s;"
+        onclick="
+          alert('（無尾熊正在瞇著眼睛核對帳戶... 🐨📱）\n\n逼逼──偵測到滿滿愛意的錢已即時入帳！\n算你識相啦！❤️');
+          handlePayClick();
+        ">
+        🔒 請先點擊上方按鈕前往轉帳
+      </button>
+
+      <!-- 防作弊連環按鈕 -->
+      <button type="button" class="pay-link-btn" 
+        style="background: transparent; border: none; color: rgba(232, 160, 180, 0.6); font-size: 12px; margin-top: 16px; cursor: pointer; text-decoration: underline; letter-spacing: 1px; transition: color 0.2s;" 
+        onmouseover="this.style.color='var(--pink)'" 
+        onmouseout="this.style.color='rgba(232, 160, 180, 0.6)'"
+        onclick="
+          if(confirm('系統正在連線銀行端進行即時入帳核對...\n\n您確定真的已經轉帳了嗎？🤨')) {
+            if(confirm('偵測到無尾熊的帳戶尚未收到通知！\n\n陳勁碩，你是不是想點這個按鈕偷跑？不準騙人喔！😤')) {
+              if(confirm('好啦，再給你最後一次誠實的機會。\n\n真的有轉帳了嗎？(點「取消」回去乖乖轉帳，點「確定」接受懲罰)')) {
+                alert('哼，看在今天是你的生日份上，小寶就大發慈悲原諒你的偷吃步！😘\n\n點擊「確定」正式為你特赦解鎖！❤️');
+                handlePayClick();
+              }
             }
-            currentName = name;
-            showPurchases(name);
+          }
+        ">
+        [ 已完成轉帳？點擊驗證解鎖回憶 ]
+      </button>
+    </div>
+  </div>
+</div>
 
-            // 判斷是否有任何運費資料
-            const hasShipping = purchases[name].some(r => r.shippingCost !== undefined);
-            document.getElementById("payBtn").style.display = hasShipping ? "inline-block" : "none";
-        }
+<script>
+/* ── TIME LOCK LOGIC ── */
+let bypassLock = false; 
+const targetDate = new Date("2026-06-06T00:00:00+08:00").getTime();
+const lockScreen = document.getElementById('time-lock-screen');
 
-        function showPurchases(name) {
-            const records = purchases[name];
-            let html = `<h2>${name} 的購買記錄：</h2>`;
-            if (!records || records.length === 0) {
-                html += "<p>暫無記錄。</p>";
-            } else {
-                html += "<table border='1' style='margin: 0 auto; color: white;'>";
-                html += "<tr><th>下單日期</th><th>物品</th><th>狀態</th><th>重量</th><th>二補💰</th><th>備註</th></tr>";
-                records.forEach(record => {
-                    const date = record.date !== undefined ? record.date : "暫無";
-                    const item = record.item !== undefined ? record.item : "暫無";
-                    const status = record.status !== undefined ? record.status : "暫無";
-                    const weight = record.weight !== undefined ? record.weight : "暫無";
-                    const shippingCost = record.shippingCost !== undefined ? record.shippingCost : "暫無";
-                    const note = record.note !== undefined ? record.note : "暫無";
-                    html += `<tr>
-                                <td>${date}</td>
-                                <td>${item}</td>
-                                <td>${status}</td>
-                                <td>${weight}</td>
-                                <td>${shippingCost}</td>
-                                <td>${note}</td>
-                            </tr>`;
-                });
-                html += "</table>";
-            }
-            document.getElementById("result").innerHTML = html;
-        }
+function checkTime() {
+  if (bypassLock) return;
+  const now = new Date().getTime();
+  const diff = targetDate - now;
+  
+  if (diff <= 0) {
+    lockScreen.style.display = 'none';
+    clearInterval(timerInterval);
+    // 🥳 6/6 時間到了！網頁標籤瞬間變身為生日快樂！
+    document.title = "✨ 勁碩生日快樂 💎 ✨";
+  } else {
+    // 🐨 6/6 以前他偷點開，網頁標籤會顯示這個
+    document.title = "驚喜籌備中... 🐨";
+    
+    const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const s = Math.floor((diff % (1000 * 60)) / 1000);
+    
+    document.getElementById('cd-d').textContent = d.toString().padStart(2, '0');
+    document.getElementById('cd-h').textContent = h.toString().padStart(2, '0');
+    document.getElementById('cd-m').textContent = m.toString().padStart(2, '0');
+    document.getElementById('cd-s').textContent = s.toString().padStart(2, '0');
+    lockScreen.style.display = 'flex';
+  }
+}
 
-        // 解析金額字串，只取純數字部分加總（忽略 +國際郵 等文字）
-        function parseAmount(str) {
-            if (!str) return 0;
-            // 取出所有數字（含小數），加總
-            const matches = str.match(/[\d.]+/g);
-            if (!matches) return 0;
-            return matches.reduce((sum, n) => sum + parseFloat(n), 0);
-        }
+function triggerBackdoor() {
+  let pw = prompt("✨ 開發人員特別通道 ✨\n請輸入跳過密碼進行網頁功能測試：");
+  if (pw === "0919") {
+    bypassLock = true;
+    lockScreen.style.display = 'none';
+    clearInterval(timerInterval);
+    // ❤️ 妳輸入密碼測試時，標籤也會立刻變成生日快樂，方便妳看效果！
+    document.title = "✨ 勁碩生日快樂 💎 ✨";
+    alert("密碼正確！已暫時解除時間鎖，祝測試順利 ❤️");
+  } else if (pw !== null) {
+    alert("密碼錯誤喔！請乖乖等待倒數結束～🐨");
+  }
+}
 
-        function openPayModal() {
-            if (!currentName) return;
-            const records = purchases[currentName];
-            const withCost = records.filter(r => r.shippingCost !== undefined);
+checkTime();
+const timerInterval = setInterval(checkTime, 1000);
 
-            let detailsHtml = "";
-            let total = 0;
-            let hasExtra = false;
+/* ── STARFIELD ── */
+(function(){
+  const cv = document.getElementById('canvas-bg');
+  const ctx = cv.getContext('2d');
+  let stars = [];
+  function resize(){ cv.width=window.innerWidth; cv.height=window.innerHeight; }
+  resize(); window.addEventListener('resize', resize);
+  for(let i=0;i<200;i++) stars.push({ x:Math.random(), y:Math.random(), r:Math.random()*1.2+0.2, a:Math.random(), da:Math.random()*0.01+0.003 });
+  function draw(){
+    ctx.clearRect(0,0,cv.width,cv.height);
+    stars.forEach(s=>{
+      s.a += s.da; if(s.a>1||s.a<0) s.da*=-1;
+      ctx.beginPath(); ctx.arc(s.x*cv.width,s.y*cv.height,s.r,0,Math.PI*2);
+      ctx.fillStyle=`rgba(245,240,235,${s.a*0.6})`;
+      ctx.fill();
+    });
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
 
-            withCost.forEach(r => {
-                const raw = r.shippingCost; // e.g. "$8" or "$32+國際郵"
-                const amount = parseAmount(raw);
-                total += amount;
-                // 判斷是否有附加說明（非純數字）
-                const hasNote = /[^\d.$+.\s]/.test(raw);
-                if (hasNote) hasExtra = true;
+/* ── STATE ── */
+let globalScore = 0;
+const stageNames = ['Prologue','K-POP Quiz','Memory Gallery'];
 
-                detailsHtml += `
-                    <div class="pay-row">
-                        <span class="label">${r.item}</span>
-                        <span class="val">${raw}</span>
-                    </div>`;
-            });
+function updateProgress(i){
+  document.getElementById('stage-nav').style.display='flex';
+  document.getElementById('stage-label').textContent = stageNames[i] || '';
+  document.querySelectorAll('.prog-dot').forEach((d,idx)=>{
+    d.className = 'prog-dot';
+    if(idx < i) d.classList.add('done');
+    else if(idx === i) d.classList.add('active');
+  });
+}
 
-            // 判斷是否有「需匯款」的項目（有金額且不是純國際郵）
-            const hasLocalCost = withCost.some(r => !r.shippingCost.includes("國際郵"));
+function gotoStage(n){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  const targets = ['s-title','s-story','s-quiz-intro','s-quiz-play','s-final','s-encore'];
+  
+  let mappedNavIndex = n - 1; 
+  if (n === 3) mappedNavIndex = 1; 
+  if (n === 4) mappedNavIndex = 2; 
 
-            document.getElementById("payDetails").innerHTML = detailsHtml;
-            document.getElementById("payTotal").innerHTML =
-                `合計應繳：<span style="font-size:1.2em">NT$ ${total}</span>` +
-                (hasExtra ? `<br><span style="font-size:0.75em;color:#ffcccc">＊ 此買家為貨到付款</span>` : "");
+  const el = document.getElementById(targets[n]);
+  if(el){ el.classList.add('active'); window.scrollTo(0,0); }
+  if(n>=1 && n<=4) updateProgress(mappedNavIndex);
+  if(n===4) initFinal();
+}
 
-            document.getElementById("pay-info-block").style.display = hasLocalCost ? "block" : "none";
+function startGame(){ gotoStage(1); typeStory(); }
 
-            document.getElementById("payModal").classList.add("show");
-        }
+/* ── STORY TYPING ── */
+const STORY = `今天是你的生日 🎂\n\n這是小寶特別為你做的小遊戲，\n玩一個遊戲才能繼續哦！\n\n準備好了嗎？`;
+function typeStory(){
+  const el = document.getElementById('story-text');
+  el.textContent = '';
+  let i = 0;
+  function t(){ if(i<STORY.length){ el.textContent+=STORY.charAt(i++); setTimeout(t,45); } else { document.getElementById('story-next').style.display='inline-block'; } }
+  t();
+}
 
-        function closePayModal() {
-            document.getElementById("payModal").classList.remove("show");
-        }
+/* ── QUIZ DATA ── */
+const ALL_QUESTIONS = [
+  { group:'SEVENTEEN', type:'成員知識', question:'SEVENTEEN 共有幾位成員？', options:['11位','13位','15位','17位'], answer:1 },
+  { group:'SEVENTEEN', type:'成員知識', question:'SEVENTEEN 的隊長是誰？', options:['Woozi','S.Coups','Joshua','Jeonghan'], answer:1 },
+  { group:'SEVENTEEN', type:'成員知識', question:'SEVENTEEN Performance team 的 leader 是誰？', options:['Hoshi','Jun','The8','Dino'], answer:0 },
+  { group:'SEVENTEEN', type:'歌曲辨認', question:'哪首不是 SEVENTEEN 的歌？', options:['Left & Right','MAESTRO','HOT','After LIKE'], answer:3 },
+  { group:'SEVENTEEN', type:'成員知識', question:'SEVENTEEN 哪位成員來自深圳？', options:['Minghao','Jun','Joshua','Vernon'], answer:1 },
+  { group:'I-DLE', type:'成員知識', question:'I-DLE 的隊長是誰？', options:['Miyeon','Minnie','Soyeon','Yuqi'], answer:2 },
+  { group:'I-DLE', type:'成員知識', question:'I-DLE 哪位成員來自泰國？', options:['Shuhua','Minnie','Yuqi','Miyeon'], answer:1 },
+  { group:'I-DLE', type:'歌曲辨認', question:'哪首是 I-DLE 2023年大爆的歌曲？', options:['TOMBOY','Queencard','Nxde','LION'], answer:1 },
+  { group:'LE SSERAFIM', type:'成員知識', question:'LE SSERAFIM 的隊長是誰？', options:['Eunchae','Yunjin','Kazuha','Chaewon'], answer:3 },
+  { group:'LE SSERAFIM', type:'歌曲辨認', question:'哪首是 LE SSERAFIM 的出道曲？', options:['ANTIFRAGILE','UNFORGIVEN','FEARLESS','SMART'], answer:2 },
+  { group:'LE SSERAFIM', type:'成員知識', question:'LE SSERAFIM 兩位日本成員分別是誰？', options:['Kazuha&Yunjin','Kazuha&Sakura','Yunjin&Sakura','Sakura&Eunchae'], answer:1 },
+  { group:'aespa', type:'歌曲辨認', question:'哪首是 aespa 的出道曲？', options:['Next Level','Black Mamba','Savage','Drama'], answer:1 },
+  { group:'aespa', type:'成員知識', question:'aespa 哪位成員來自中國？', options:['Karina','Giselle','NingNing','Winter'], answer:2 },
+  { group:'IVE', type:'成員知識', question:'IVE 哪兩位成員曾是 IZ*ONE 成員？', options:['Yujin & Rei','Wonyoung & Yujin','Liz & Leeseo','Rei & Wonyoung'], answer:1 },
+  { group:'IVE', type:'歌曲辨認', question:'哪首是 IVE 的出道曲？', options:['LOVE DIVE','After LIKE','ELEVEN','I AM'], answer:2 }
+];
 
-        // 點彈窗外部也可關閉
-        document.getElementById("payModal").addEventListener("click", function(e) {
-            if (e.target === this) closePayModal();
-        });
-    </script>
+function shuffle(arr){
+  const a=[...arr];
+  for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}
+  return a;
+}
+
+let quizQuestions=[], quizCurrent=0, quizScore=0, wrongItems=[];
+
+function startQuizGameplay() {
+  gotoStage(3); // 跳轉到遊戲進行畫面
+  quizQuestions = shuffle(ALL_QUESTIONS);
+  quizCurrent = 0; quizScore = 0; wrongItems = [];
+  renderQuestion();
+}
+
+function renderQuestion(){
+  const q=quizQuestions[quizCurrent];
+  const card=document.getElementById('quiz-card');
+  card.classList.remove('fade-up');
+  void card.offsetWidth;
+  card.classList.add('fade-up');
+
+  document.getElementById('q-counter').textContent=`${quizCurrent+1} / ${quizQuestions.length}`;
+  document.getElementById('score-disp').textContent=`score: ${quizScore}`;
+  document.getElementById('prog-fill').style.width=`${Math.round((quizCurrent+1)/quizQuestions.length*100)}%`;
+  document.getElementById('q-group').textContent=q.group;
+  document.getElementById('q-type').textContent=q.type;
+  document.getElementById('q-question').textContent=q.question;
+  document.getElementById('q-hint').textContent=q.hint||'';
+  document.getElementById('q-feedback').textContent='';
+  document.getElementById('q-next').style.display='none';
+
+  const opts=document.getElementById('q-opts');
+  opts.innerHTML='';
+  q.options.forEach((opt,i)=>{
+    const btn=document.createElement('button');
+    btn.className='opt';
+    btn.textContent=opt;
+    btn.onclick=()=>selectAnswer(i);
+    opts.appendChild(btn);
+  });
+}
+
+function selectAnswer(idx){
+  const q=quizQuestions[quizCurrent];
+  const opts=document.querySelectorAll('.opt');
+  opts.forEach(b=>b.disabled=true);
+  const correct=q.answer;
+  opts[correct].classList.add('correct');
+  const fb=document.getElementById('q-feedback');
+  if(idx===correct){
+    quizScore++;
+    fb.style.color='var(--green)';
+    fb.textContent='✓ 答對了！';
+  } else {
+    opts[idx].classList.add('wrong');
+    fb.style.color='var(--red)';
+    fb.textContent=`✗ 正確答案是：${q.options[correct]}`;
+    wrongItems.push({q:q.question, correct:q.options[correct], yours:q.options[idx]});
+  }
+  document.getElementById('score-disp').textContent=`score: ${quizScore}`;
+  document.getElementById('q-next').style.display='inline-block';
+}
+
+function nextQuestion(){
+  quizCurrent++;
+  if(quizCurrent>=quizQuestions.length){ showQuizResult(); } else { renderQuestion(); }
+}
+
+function showQuizResult(){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById('s-quiz-result').classList.add('active');
+  
+  const pct=Math.round(quizScore/quizQuestions.length*100);
+  document.getElementById('final-quiz-score').textContent=quizScore;
+  
+  globalScore = Math.round((quizScore / quizQuestions.length) * 100);
+
+  let msg='';
+  if(pct>=90) msg='🏆 KPOP 大師！你對偶像瞭若指掌，真的太厲害了！';
+  else if(pct>=70) msg='💎 KPOP 達人！大部分都答對了，繼續加油！';
+  else if(pct>=50) msg='🎵 還不錯！多聽幾張專輯就能衝上去！';
+  else msg='🌱 剛入坑嗎？多看看舞台表演，很快就會認識大家的！';
+  document.getElementById('result-msg').textContent=msg;
+
+  const ws=document.getElementById('wrong-section');
+  if(wrongItems.length>0){
+    let html=`<div class="wrong-list"><h4>答錯的題目</h4>`;
+    wrongItems.forEach(w=>{
+      html+=`<div class="wrong-item">${w.q}<br>正解：<span>${w.correct}</span>　你答：${w.yours}</div>`;
+    });
+    html+=`</div>`;
+    ws.innerHTML=html;
+  } else {
+    ws.innerHTML='';
+  }
+  if(pct>=70) launchConfetti();
+}
+
+function retryQuiz() {
+  document.getElementById('s-quiz-result').classList.remove('active');
+  startQuizGameplay();
+}
+
+function finishQuizStage() {
+  document.getElementById('pay-modal').classList.add('active');
+}
+/* ── 防作弊轉帳偵測系統 ── */
+let leaveTime = 0;
+let hasTraded = false; // 是否觸發過點擊
+
+// 當男友點了轉帳或複製帳號，記錄當下時間，並啟動監聽
+function recordLeaveTime() {
+  leaveTime = new Date().getTime();
+  hasTraded = true;
+}
+
+// 監聽網頁重新獲得焦點（從銀行 App 切換回來網頁時）
+window.addEventListener('focus', function() {
+  // 如果根本沒點過轉帳按鈕，或者按鈕已經解鎖了，就不重複執行
+  if (!hasTraded || leaveTime === 0) return;
+  
+  const returnTime = new Date().getTime();
+  const timePassed = (returnTime - leaveTime) / 1000; // 換算成秒數
+  
+  const successBtn = document.getElementById('pay-success-btn');
+  
+  if (timePassed >= 10) {
+    // 成功離開超過 10 秒！解鎖按鈕並變綠色
+    successBtn.disabled = false;
+    successBtn.style.borderColor = 'var(--green)';
+    successBtn.style.color = 'var(--green)';
+    successBtn.style.background = 'rgba(78,203,122,0.05)';
+    successBtn.style.cursor = 'pointer';
+    successBtn.textContent = '✅ 我已乖乖完成轉帳，申請解鎖！';
+    leaveTime = 0; // 重設時間，避免重複觸發
+  } else {
+    // 離開不到 10 秒，判定在敷衍作弊
+    alert(`（無尾熊偵測雷達逼逼逼── 🐨🚨）\n\n陳勁碩！你才離開 ${Math.round(timePassed)} 秒鐘！\n這點時間連密碼都輸入不完吧，你根本沒轉帳！😤\n\n不准偷懶！`);
+    leaveTime = 0; // 失敗了重設，要重新點擊按鈕才行
+  }
+});
+function handlePayClick() {
+  alert('叮咚！檢測到滿滿的愛意，親愛的男友已自動獲得永久免費特權！❤️');
+  document.getElementById('pay-modal').classList.remove('active');
+  document.getElementById('s-quiz-result').classList.remove('active');
+  gotoStage(4); // 進入回憶相簿與情書
+}
+
+function launchConfetti(){
+  const colors=['#c9a84c','#f0d080','#4ecb7a','#5badea','#e8a0b4'];
+  for(let i=0;i<60;i++){
+    setTimeout(()=>{
+      const c=document.createElement('div');
+      c.className='confetti-piece';
+      c.style.left=Math.random()*100+'vw';
+      c.style.background=colors[~~(Math.random()*colors.length)];
+      c.style.animationDuration=(2.5+Math.random()*2.5)+'s';
+      c.style.animationDelay=Math.random()*1.5+'s';
+      document.body.appendChild(c);
+      setTimeout(()=>c.remove(),6000);
+    },i*35);
+  }
+}
+
+/* ── FINAL LETTER ── */
+function initFinal(){
+  const LETTER = `和你在一起的每一天都很開心，\n儘管久久見一次面，\n但你總有說不完的故事，\n很喜歡靜靜地聽你分享。\n\n未來還有很多很多個生日跟節日，\n希望可以陪你一起拍照、一起分享生活中的大小事，\n開心快樂地過每一天。\n\n생일 축하해요，寶寶~`;
+
+  const el = document.getElementById('final-letter');
+  el.textContent=''; let i=0;
+  function ty(){ if(i<LETTER.length){ el.textContent+=LETTER.charAt(i++); setTimeout(ty,40); } else { setTimeout(()=>{ document.getElementById('letter-btn').style.display='inline-block'; },500); } }
+  ty();
+}
+
+/* ── ENCORE ── */
+function gotoEncore(){
+  gotoStage(5);
+  document.getElementById('final-score').textContent=`SCORE: ${globalScore} / 100`;
+  startConfetti();
+  startFireworks();
+}
+
+function startConfetti(){
+  const colors=['#c9a84c','#f0d080','#e8a0b4','#6ab0e8','#f5f0eb'];
+  for(let i=0;i<80;i++){
+    setTimeout(()=>{
+      const c=document.createElement('div');
+      c.className='confetti-piece';
+      c.style.left=Math.random()*100+'vw';
+      c.style.background=colors[Math.floor(Math.random()*colors.length)];
+      c.style.animationDuration=(2+Math.random()*3)+'s';
+      c.style.animationDelay=Math.random()*2+'s';
+      document.body.appendChild(c);
+      setTimeout(()=>c.remove(),6000);
+    },i*40);
+  }
+}
+
+function startFireworks(){
+  const emojis=['❤️','💎','✨','💖','🌸','🎉'];
+  for(let i=0;i<30;i++){
+    setTimeout(()=>{
+      const f=document.createElement('div');
+      f.className='firework';
+      f.textContent=emojis[Math.floor(Math.random()*emojis.length)];
+      f.style.left=Math.random()*100+'vw';
+      f.style.top=Math.random()*100+'vh';
+      f.style.setProperty('--dx',(Math.random()*200-100)+'px');
+      f.style.setProperty('--dy',(Math.random()*200-100)+'px');
+      document.body.appendChild(f);
+      setTimeout(()=>f.remove(),2600);
+    },i*120);
+  }
+}
+</script>
 </body>
 </html>
