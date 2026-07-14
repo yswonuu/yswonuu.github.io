@@ -382,9 +382,12 @@
             // 判斷是否有「需匯款」的項目（有金額且不是純國際郵）
             const hasLocalCost = withCost.some(r => !r.shippingCost.includes("國際郵"));
 
+            // 解決浮點數精度問題：四捨五入到小數點後兩位，並用 parseFloat 去除尾端多餘的 0
+            const formattedTotal = parseFloat(total.toFixed(2));
+
             document.getElementById("payDetails").innerHTML = detailsHtml;
             document.getElementById("payTotal").innerHTML =
-                `合計應繳：<span style="font-size:1.2em">NT$ ${total}</span>` +
+                `合計應繳：<span style="font-size:1.2em">NT$ ${formattedTotal}</span>` +
                 (hasExtra ? `<br><span style="font-size:0.75em;color:#ffcccc">＊ 此買家為貨到付款</span>` : "");
 
             document.getElementById("pay-info-block").style.display = hasLocalCost ? "block" : "none";
