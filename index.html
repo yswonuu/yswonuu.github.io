@@ -262,7 +262,7 @@
             "蘇敏熏": [
                 { item: "Twice新國立Momo", date:"2026.04.14",status: "已提確"},
                 { item: "Twice娃",status: "已申請運回/0355",weight: "0.07kg"},
-                { item: "Twice娃",status: "已到集運/7981",weight: "0.12kg",shippingCost: "$1.71r"},
+                { item: "Twice娃",status: "已到集運/7981",weight: "0.12kg",shippingCost: "Y1.71"},
             ],
             "鄭詠儀": [
                 { item: "YAKUSOKU 環球場限", date:"2026.05.29",status: "已下單",note:"官方7/16陸續發貨"},
@@ -368,7 +368,7 @@
                 const raw = r.shippingCost; // e.g. "$8" or "$32+國際郵"
                 const amount = parseAmount(raw);
                 total += amount;
-                // 判斷是否有附加說明（非純數字）
+                // 判斷是否有附加說明（如：包含中文字元，代表是貨到付款或特殊備註）
                 const hasNote = /[^\d.$+.\s]/.test(raw);
                 if (hasNote) hasExtra = true;
 
@@ -379,10 +379,7 @@
                     </div>`;
             });
 
-            // 判斷是否有「需匯款」的項目（有金額且不是純國際郵）
-            const hasLocalCost = withCost.some(r => !r.shippingCost.includes("國際郵"));
-
-            // 解決浮點數精度問題：四捨五入到小數點後兩位，並用 parseFloat 去除尾端多餘的 0
+            // 解決浮點數精度問題
             const formattedTotal = parseFloat(total.toFixed(2));
 
             document.getElementById("payDetails").innerHTML = detailsHtml;
@@ -390,7 +387,14 @@
                 `合計應繳：<span style="font-size:1.2em">NT$ ${formattedTotal}</span>` +
                 (hasExtra ? `<br><span style="font-size:0.75em;color:#ffcccc">＊ 此買家為貨到付款</span>` : "");
 
-            document.getElementById("pay-info-block").style.display = hasLocalCost ? "block" : "none";
+            // 如果判定為貨到付款（hasExtra 為 true），則強制隱藏匯款帳號區塊
+            if (hasExtra) {
+                document.getElementById("pay-info-block").style.display = "none";
+            } else {
+                // 否則判斷是否有需要本島付費的項目來決定是否顯示
+                const hasLocalCost = withCost.some(r => !r.shippingCost.includes("國際郵"));
+                document.getElementById("pay-info-block").style.display = hasLocalCost ? "block" : "none";
+            }
 
             document.getElementById("payModal").classList.add("show");
         }
