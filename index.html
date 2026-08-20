@@ -339,15 +339,21 @@
                 html += "<p>暫無記錄。</p>";
             } else {
                 html += "<table border='1' style='margin: 0 auto; color: white;'>";
-                html += "<tr><th>下單日期</th><th>物品</th><th>狀態</th><th>重量</th><th>二補💰</th><th>備註</th></tr>";
-                records.forEach(record => {
+                // 1. 在表頭增加「項次」欄位
+                html += "<tr><th>項次</th><th>下單日期</th><th>物品</th><th>狀態</th><th>重量</th><th>二補💰</th><th>備註</th></tr>";
+                
+                // 2. 透過 index 取得索引值 (從 0 開始，所以 +1 當作編號)
+                records.forEach((record, index) => {
                     const date = record.date !== undefined ? record.date : "暫無";
                     const item = record.item !== undefined ? record.item : "暫無";
                     const status = record.status !== undefined ? record.status : "暫無";
                     const weight = record.weight !== undefined ? record.weight : "暫無";
                     const shippingCost = record.shippingCost !== undefined ? record.shippingCost : "暫無";
                     const note = record.note !== undefined ? record.note : "暫無";
+                    
+                    // 3. 在表格的第一欄輸出 index + 1
                     html += `<tr>
+                                <td>${index + 1}</td>
                                 <td>${date}</td>
                                 <td>${item}</td>
                                 <td>${status}</td>
