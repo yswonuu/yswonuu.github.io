@@ -339,10 +339,11 @@
                 html += "<p>暫無記錄。</p>";
             } else {
                 html += "<table border='1' style='margin: 0 auto; color: white;'>";
-                // 1. 在表頭增加「項次」欄位
+                // 1. 增加「項次」欄位
                 html += "<tr><th>項次</th><th>下單日期</th><th>物品</th><th>狀態</th><th>重量</th><th>二補💰</th><th>備註</th></tr>";
                 
-                // 2. 透過 index 取得索引值 (從 0 開始，所以 +1 當作編號)
+                let totalWeight = 0; // 用來累計總重量
+
                 records.forEach((record, index) => {
                     const date = record.date !== undefined ? record.date : "暫無";
                     const item = record.item !== undefined ? record.item : "暫無";
@@ -351,7 +352,15 @@
                     const shippingCost = record.shippingCost !== undefined ? record.shippingCost : "暫無";
                     const note = record.note !== undefined ? record.note : "暫無";
                     
-                    // 3. 在表格的第一欄輸出 index + 1
+                    // 解析重量數字並進行加總 (例如 "0.06kg" 自動轉為 0.06)
+                    if (record.weight) {
+                        const wNum = parseFloat(record.weight);
+                        if (!isNaN(wNum)) {
+                            totalWeight += wNum;
+                        }
+                    }
+
+                    // 2. 輸出資料並加上項次 (index + 1)
                     html += `<tr>
                                 <td>${index + 1}</td>
                                 <td>${date}</td>
@@ -362,6 +371,17 @@
                                 <td>${note}</td>
                             </tr>`;
                 });
+
+                // 保留小數點後兩位，避免 JavaScript 小數運算誤差
+                const formattedWeight = totalWeight.toFixed(2);
+
+                // 3. 在表格最下方新增「重量合計列」
+                html += `<tr style="font-weight: bold; background-color: rgba(255, 255, 255, 0.2);">
+                            <td colspan="4" style="text-align: right;">重量合計：</td>
+                            <td style="color: #ffe0ff;">${formattedWeight} kg</td>
+                            <td colspan="2"></td>
+                         </tr>`;
+
                 html += "</table>";
             }
             document.getElementById("result").innerHTML = html;
