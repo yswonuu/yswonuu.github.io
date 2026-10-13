@@ -318,8 +318,16 @@
             currentName = name;
             showPurchases(name);
 
-            // 判斷是否有任何運費資料
-            const hasShipping = purchases[name].some(r => r.shippingCost !== undefined);
+            // 判斷是否有任何金額項目（包含單項二補金額或重量計算）
+            const records = purchases[name];
+            let totalWeight = 0;
+            records.forEach(r => {
+                if (r.weight) {
+                    const wNum = parseFloat(r.weight);
+                    if (!isNaN(wNum)) totalWeight += wNum;
+                }
+            });
+            const hasShipping = records.some(r => r.shippingCost !== undefined) || totalWeight > 0;
             document.getElementById("payBtn").style.display = hasShipping ? "inline-block" : "none";
         }
 
@@ -330,8 +338,7 @@
                 html += "<p>暫無記錄。</p>";
             } else {
                 html += "<table border='1' style='margin: 0 auto; color: white;'>";
-                // 1. 增加「項次」欄位
-                html += "<tr><th>項次</th><th>下單日期</th><th>物品</th><th>狀態</th><th>重量</th><th>二補💰</th><th>備註</th></tr>";
+                html += "<tr><th>項次</th><th>下單日期</th><th>物品</th><th>狀態</th><th>重量</th><th>二補💰(不是總和)</th><th>備註</th></tr>";
                 
                 let totalWeight = 0; // 用來累計總重量
 
@@ -343,7 +350,6 @@
                     const shippingCost = record.shippingCost !== undefined ? record.shippingCost : "暫無";
                     const note = record.note !== undefined ? record.note : "暫無";
                     
-                    // 解析重量數字並進行加總 (例如 "0.06kg" 自動轉為 0.06)
                     if (record.weight) {
                         const wNum = parseFloat(record.weight);
                         if (!isNaN(wNum)) {
@@ -351,7 +357,6 @@
                         }
                     }
 
-                    // 2. 輸出資料並加上項次 (index + 1)
                     html += `<tr>
                                 <td>${index + 1}</td>
                                 <td>${date}</td>
@@ -363,14 +368,15 @@
                             </tr>`;
                 });
 
-                // 保留小數點後兩位，避免 JavaScript 小數運算誤差
                 const formattedWeight = totalWeight.toFixed(2);
+                const weightCost = Math.round(totalWeight * 50);
 
-                // 3. 在表格最下方新增「重量合計列」
+                // 在表格最下方新增「重量合計列」，二補欄位填入 重量*50 計算出的金額
                 html += `<tr style="font-weight: bold; background-color: rgba(255, 255, 255, 0.2);">
                             <td colspan="4" style="text-align: right;">重量合計：</td>
                             <td style="color: #ffe0ff;">${formattedWeight} kg</td>
-                            <td colspan="2"></td>
+                            <td style="color: #ffe0ff;">$${weightCost}</td>
+                            <td></td>
                          </tr>`;
 
                 html += "</table>";
@@ -378,10 +384,9 @@
             document.getElementById("result").innerHTML = html;
         }
 
-        // 解析金額字串，只取純數字部分加總（忽略 +國際郵 等文字）
+        // 解析金額字串，只取純數字部分加總
         function parseAmount(str) {
             if (!str) return 0;
-            // 取出所有數字（含小數），加總
             const matches = str.match(/[\d.]+/g);
             if (!matches) return 0;
             return matches.reduce((sum, n) => sum + parseFloat(n), 0);
@@ -390,28 +395,46 @@
         function openPayModal() {
             if (!currentName) return;
             const records = purchases[currentName];
-            const withCost = records.filter(r => r.shippingCost !== undefined);
 
             let detailsHtml = "";
             let total = 0;
             let hasExtra = false;
+            let totalWeight = 0;
 
-            withCost.forEach(r => {
-                const raw = r.shippingCost; // e.g. "$8" or "$32+國際郵"
-                const amount = parseAmount(raw);
-                total += amount;
-                // 判斷是否有附加說明（如：包含中文字元，代表是貨到付款或特殊備註）
-                const hasNote = /[^\d.$+.\s]/.test(raw);
-                if (hasNote) hasExtra = true;
+            // 1. 處理個別項目的二補費用
+            records.forEach(r => {
+                if (r.weight) {
+                    const wNum = parseFloat(r.weight);
+                    if (!isNaN(wNum)) totalWeight += wNum;
+                }
 
-                detailsHtml += `
-                    <div class="pay-row">
-                        <span class="label">${r.item}</span>
-                        <span class="val">${raw}</span>
-                    </div>`;
+                if (r.shippingCost !== undefined) {
+                    const raw = r.shippingCost;
+                    const amount = parseAmount(raw);
+                    total += amount;
+                    const hasNote = /[^\d.$+.\s]/.test(raw);
+                    if (hasNote) hasExtra = true;
+
+                    detailsHtml += `
+                        <div class="pay-row">
+                            <span class="label">${r.item}</span>
+                            <span class="val">${raw}</span>
+                        </div>`;
+                }
             });
 
-            // 解決浮點數精度問題
+            // 2. 處理國際運費二補（重量合計 * 50）並加入結算明細
+            if (totalWeight > 0) {
+                const weightCost = Math.round(totalWeight * 50);
+                total += weightCost;
+                const formattedWeight = totalWeight.toFixed(2);
+                detailsHtml += `
+                    <div class="pay-row">
+                        <span class="label">重量</span>
+                        <span class="val">$${weightCost}</span>
+                    </div>`;
+            }
+
             const formattedTotal = parseFloat(total.toFixed(2));
 
             document.getElementById("payDetails").innerHTML = detailsHtml;
@@ -419,13 +442,11 @@
                 `合計應繳：<span style="font-size:1.2em">NT$ ${formattedTotal}</span>` +
                 (hasExtra ? `<br><span style="font-size:0.75em;color:#ffcccc">＊ 此買家為貨到付款</span>` : "");
 
-            // 如果判定為貨到付款（hasExtra 為 true），則強制隱藏匯款帳號區塊
             if (hasExtra) {
                 document.getElementById("pay-info-block").style.display = "none";
             } else {
-                // 否則判斷是否有需要本島付費的項目來決定是否顯示
-                const hasLocalCost = withCost.some(r => !r.shippingCost.includes("國際郵"));
-                document.getElementById("pay-info-block").style.display = hasLocalCost ? "block" : "none";
+                const hasCost = records.some(r => r.shippingCost !== undefined && !r.shippingCost.includes("國際郵")) || totalWeight > 0;
+                document.getElementById("pay-info-block").style.display = hasCost ? "block" : "none";
             }
 
             document.getElementById("payModal").classList.add("show");
@@ -435,7 +456,6 @@
             document.getElementById("payModal").classList.remove("show");
         }
 
-        // 點彈窗外部也可關閉
         document.getElementById("payModal").addEventListener("click", function(e) {
             if (e.target === this) closePayModal();
         });
