@@ -351,12 +351,11 @@
                 html += "<p>暫無記錄。</p>";
             } else {
                 html += "<table border='1' style='margin: 0 auto; color: white;'>";
-                html += "<tr><th>項次</th><th>下單日期</th><th>物品</th><th>狀態</th><th>重量</th><th>二補💰(不是總和)</th><th>備註</th></tr>";
+                html += "<tr><th>項次</th><th>物品</th><th>狀態</th><th>重量</th><th>二補💰(不是總和)</th><th>備註</th></tr>";
                 
                 let totalWeight = 0; // 用來累計總重量
 
                 records.forEach((record, index) => {
-                    const date = record.date !== undefined ? record.date : "暫無";
                     const item = record.item !== undefined ? record.item : "暫無";
                     const status = record.status !== undefined ? record.status : "暫無";
                     const weight = record.weight !== undefined ? record.weight : "暫無";
@@ -372,7 +371,6 @@
 
                     html += `<tr>
                                 <td>${index + 1}</td>
-                                <td>${date}</td>
                                 <td>${item}</td>
                                 <td>${status}</td>
                                 <td>${weight}</td>
@@ -384,13 +382,12 @@
                 const formattedWeight = totalWeight.toFixed(2);
                 const weightCost = Math.round(totalWeight * 50);
 
-                // 在表格最下方新增「重量合計列」，二補欄位填入 重量*50 計算出的金額
                 html += `<tr style="font-weight: bold; background-color: rgba(255, 255, 255, 0.2);">
-                            <td colspan="4" style="text-align: right;">重量合計：</td>
-                            <td style="color: #ffe0ff;">${formattedWeight} kg</td>
-                            <td style="color: #ffe0ff;">$${weightCost}</td>
-                            <td></td>
-                         </tr>`;
+                    <td colspan="3" style="text-align: right;">重量合計：</td>
+                    <td style="color: #ffe0ff;">${formattedWeight} kg</td>
+                    <td style="color: #ffe0ff;">$${weightCost}</td>
+                    <td></td>
+                </tr>`;
 
                 html += "</table>";
             }
